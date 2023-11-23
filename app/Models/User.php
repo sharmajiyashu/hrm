@@ -20,14 +20,23 @@ class User extends Authenticatable
 
 
     static $admin = 1;
+    
     public function isAdmin()
     {
         // Implement logic to check if the user is an admin
         return $this->role == '1'; // Adjust this based on your user role implementation
     }
 
+    public function isEmployee()
+    {
+        // Implement logic to check if the user is an admin
+        return $this->role == '0'; // Adjust this based on your user role implementation
+    }
+
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'mobile',
         'email',
         'password',
         'password_2',

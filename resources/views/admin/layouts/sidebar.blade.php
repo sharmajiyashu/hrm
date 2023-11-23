@@ -19,12 +19,12 @@
                  
             </li>
             
-            <li class=" nav-item {{ Request::routeIs('admin.employees.index') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.employees.index','admin.employees.create') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.index') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
 
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.create') ? 'active' : '' }} " href="{{ route('admin.employees.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
                     </li>
                 </ul>
             </li>

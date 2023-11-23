@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -29,7 +31,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employees.create');
     }
 
     /**
@@ -40,7 +42,17 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        //
+        $employee = Employee::create($request->validated());
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'password' => Hash::make('123'),
+            'password_2' => '123',
+        ]);
+        $employee->update(['user_id' => $user->id]);
+        return redirect()->route('admin.employees.index')->with('success','Create employee successfully');
     }
 
     /**
