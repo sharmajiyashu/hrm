@@ -18,8 +18,27 @@
             <li class=" nav-item {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('admin.dashboard') }}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
                  
             </li>
+            
+            <li class=" nav-item {{ Request::routeIs('admin.employees.index') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.index') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    </li>
 
-           
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item {{ Request::routeIs() ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Employee <br> Management</span></a>
+                    </li>
+
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Staff Attendence</span></a>
+                    </li>
+                </ul>
+            </li>
+
            
         
         </ul>

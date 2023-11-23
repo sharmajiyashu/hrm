@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,8 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/',[HomeController::class,'dashboard'])->name('dashboard');
 
-
+    
+    Route::resource('employees',EmployeeController::class);
 
 
 

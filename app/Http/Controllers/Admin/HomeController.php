@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     function dashboard(){
-        return view('dashboard');
+        return view('admin.dashboard');
     }
 }

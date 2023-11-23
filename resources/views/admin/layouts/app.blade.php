@@ -67,9 +67,9 @@
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
-    @include('layouts.header')
+    @include('admin.layouts.header')
 
-    @include('layouts.sidebar')
+    @include('admin.layouts.sidebar')
 
     @yield('content')
 
@@ -83,7 +83,7 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
-    @include('layouts.js')
+    @include('admin.layouts.js')
 
 </body>
 <!-- END: Body-->
