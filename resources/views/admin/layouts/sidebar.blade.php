@@ -19,7 +19,7 @@
                  
             </li>
             
-            <li class=" nav-item {{ Request::routeIs('admin.employees.index','admin.employees.create','admin.employees.show','admin.employees.appraisals') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.employees.index','admin.employees.create','admin.employees.show','admin.employees.appraisals') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.index','admin.employees.show','admin.employees.appraisals') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
@@ -29,7 +29,7 @@
                 </ul>
             </li>
 
-            <li class=" nav-item {{ Request::routeIs('admin.loans.index','admin.loans.create','admin.loans.show','admin.loans.appraisals') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Loan</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.loans.index','admin.loans.create','admin.loans.show','admin.loans.appraisals') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="package"></i><span class="menu-title text-truncate" data-i18n="Invoice">Loan</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.loans.index','admin.loans.show','admin.loans.appraisals') ? 'active' : '' }} " href="{{ route('admin.loans.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
@@ -39,7 +39,7 @@
                 </ul>
             </li>
 
-            <li class=" nav-item {{ Request::routeIs() ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
+            <li class=" nav-item {{ Request::routeIs() ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="settings"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Employee <br> Management</span></a>
                     </li>

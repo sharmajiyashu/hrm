@@ -60,7 +60,7 @@ class LoanController extends Controller
                 'start_emi' => Carbon::parse($request->emi_start)->toDateString(),
             ]);
             $emi_data = self::showCalculation($request->loan_amount,$request->rate_of_interest,$request->emi_start,$request->tenure,$data['emi']);
-            $loan_id = 1;
+            $loan_id = $loan->id;
             $emi_no = 1;
             foreach($emi_data as $key=>$value){
                 $loan = Emi::updateOrCreate(['loan_id' => $loan_id ,'emi_number' => $emi_no],[
@@ -93,7 +93,9 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-        //
+        $employee = Employee::where('user_id',$loan->user_id)->first();
+        $emis = Emi::where('loan_id',$loan->id)->get();
+        return view('admin.loans.show',compact('loan','emis','employee'));
     }
 
     /**

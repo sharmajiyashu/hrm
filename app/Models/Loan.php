@@ -25,7 +25,10 @@ class Loan extends Model
             $event->last_name = isset($user->last_name) ? $user->last_name :'';
             $event->email = isset($user->email) ? $user->email :'';
             $event->mobile = isset($user->mobile) ? $user->mobile :'';
-            $event->start_month = date('M-y',strtotime($event->start_emi));
+            $event->start_month = date('M-Y',strtotime($event->start_emi));
+            $startDate = \Carbon\Carbon::parse($event->start_emi);
+            $endDate = $startDate->addMonths($event->tenure);
+            $event->end_month = $endDate->format('M-Y');
         });
 
 

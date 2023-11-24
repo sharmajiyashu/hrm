@@ -66,6 +66,19 @@
                                     
                                         <div class="row">
 
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Employee  <span class="error">*</span></label>
+                                                    <select name="user_id" id="department" class="select2 form-select">
+                                                        <option value="">(Select Employee)</option>
+                                                        @foreach ($employees as  $key => $val)
+                                                            <option value="{{ $val->user_id }}" {{ (old('user_id') == $val->user_id) ? 'selected' : '' }}>{{ $val->first_name }} {{ $val->last_name }}</option>    
+                                                        @endforeach
+                                                    </select>
+                                                    @error('user_id')<span class="error">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-6 mb-1">
                                                 <label class="form-label" for="username">Loan Amount </label>
                                                 <input type="number" name="loan_amount" onkeyup="showEmi()" class="form-control" id="loan_amount" placeholder="Loan Amount" value="{{ old('loan_amount') }}"/>
@@ -85,35 +98,25 @@
                                             </div>
 
                                             <div class="col-md-6 mb-1">
+                                                <label class="form-label" for="username">Emi Start </label>
+                                                <input type="month" id="start_month"  name="emi_start" class="form-control" placeholder="Emi Amount" value="{{ old('emi_start') }}"  onkeyup="getEndMonth()" onchange="getEndMonth()"/>
+                                                @error('emi_start')<span class="error">{{ $message }}</span>@enderror
+                                            </div>
+                                            
+                                            <div class="col-md-3 mb-1">
                                                 <label class="form-label" for="username">Emi Amount</label>
                                                 <input type="text" readonly name="emi_amount" id="emi_amount"  class="form-control" placeholder="Emi Amount" value="{{ old('emi_amount') }}"/>
                                                 @error('emi_amount')<span class="error">{{ $message }}</span>@enderror
                                             </div>
 
-                                            <div class="col-md-6 mb-1">
-                                                <label class="form-label" for="username">Emi Start </label>
-                                                <input type="month" id="start_month"  name="emi_start" class="form-control" placeholder="Emi Amount" value="{{ old('emi_start') }}"  onkeyup="getEndMonth()" onchange="getEndMonth()"/>
-                                                @error('emi_start')<span class="error">{{ $message }}</span>@enderror
-                                            </div>
 
-                                            <div class="col-md-6 mb-1">
+                                            <div class="col-md-3 mb-1">
                                                 <label class="form-label" for="username">Emi End </label>
                                                 <input type="month" readonly  name="emi_end" id="end_month" class="form-control" placeholder="Emi Amount" value="{{ old('emi_end') }}"/>
                                                 @error('emi_end')<span class="error">{{ $message }}</span>@enderror
                                             </div>
 
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Employee  <span class="error">*</span></label>
-                                                    <select name="user_id" id="department" class="select2 form-select">
-                                                        <option value="">(Select Employee)</option>
-                                                        @foreach ($employees as  $key => $val)
-                                                            <option value="{{ $val->user_id }}" {{ (old('user_id') == $val->user_id) ? 'selected' : '' }}>{{ $val->first_name }} {{ $val->last_name }}</option>    
-                                                        @endforeach
-                                                    </select>
-                                                    @error('user_id')<span class="error">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
+                                            
 
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary me-1">Submit</button>
