@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\LoanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,9 @@ Route::middleware(['admin'])->group(function () {
 
     
     Route::resource('employees',EmployeeController::class);
+    Route::resource('loans',LoanController::class);
     Route::get('employees.appraisals/{id}',[EmployeeController::class,'appraisal'])->name('employees.appraisals');
+    Route::get('employees.loans/{id}',[EmployeeController::class,'loans'])->name('employees.loans');
     Route::post('employees.apprisal_save',[EmployeeController::class,'apprisalSave'])->name('employees.apprisal_save');
 
 

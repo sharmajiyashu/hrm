@@ -121,4 +121,9 @@ class EmployeeController extends Controller
     }
 
 
+    function loans($id){
+        $employee = Employee::find($id);
+    }
+
+
 }
