@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\Appraisal;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -63,7 +65,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('admin.employees.show',compact('employee'));
     }
 
     /**
@@ -99,4 +101,24 @@ class EmployeeController extends Controller
     {
         //
     }
+
+
+    function appraisal ($id){
+        $employee = Employee::find($id);
+        $apprisals = Appraisal::where('user_id',$employee->user_id)->get();
+        return view('admin.employees.accounts.apprisals',compact('employee','apprisals'));
+    }
+
+    function apprisalSave(Request $request){
+        Appraisal::create([
+            'user_id' => $request->user_id,
+            'date' => Carbon::parse($request->date)->toDateString(),
+            'next_date' => Carbon::parse($request->next_date)->toDateString(),
+            'salary' => $request->salary,
+            'remark' => $request->remark
+        ]);
+        return redirect()->back()->with('success','Apprisal create successfully');
+    }
+
+
 }

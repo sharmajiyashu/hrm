@@ -21,6 +21,8 @@ Route::middleware(['admin'])->group(function () {
 
     
     Route::resource('employees',EmployeeController::class);
+    Route::get('employees.appraisals/{id}',[EmployeeController::class,'appraisal'])->name('employees.appraisals');
+    Route::post('employees.apprisal_save',[EmployeeController::class,'apprisalSave'])->name('employees.apprisal_save');
 
 
 
