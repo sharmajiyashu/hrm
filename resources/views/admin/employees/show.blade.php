@@ -16,9 +16,9 @@
                         <h2 class="content-header-title float-start mb-0">Employee</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Employees</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.employees.index') }}">Employees</a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="#">{{ $employee->first_name }} {{ $employee->last_name }}</a>
                                 </li>

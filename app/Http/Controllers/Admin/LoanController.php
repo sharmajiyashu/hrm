@@ -32,10 +32,11 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $user_id = isset($request->user_id)  ? $request->user_id :'';
         $employees = Employee::latest()->get();
-        return view('admin.loans.create',compact('employees'));
+        return view('admin.loans.create',compact('employees','user_id'));
     }
 
     /**

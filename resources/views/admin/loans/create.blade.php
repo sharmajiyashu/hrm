@@ -72,7 +72,7 @@
                                                     <select name="user_id" id="department" class="select2 form-select">
                                                         <option value="">(Select Employee)</option>
                                                         @foreach ($employees as  $key => $val)
-                                                            <option value="{{ $val->user_id }}" {{ (old('user_id') == $val->user_id) ? 'selected' : '' }}>{{ $val->first_name }} {{ $val->last_name }}</option>    
+                                                            <option value="{{ $val->user_id }}" {{ ($user_id == $val->user_id) ? 'selected' : '' }} {{ (old('user_id') == $val->user_id) ? 'selected' : '' }} >{{ $val->first_name }} {{ $val->last_name }}</option>    
                                                         @endforeach
                                                     </select>
                                                     @error('user_id')<span class="error">{{ $message }}</span>@enderror

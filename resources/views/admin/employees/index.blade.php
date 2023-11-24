@@ -105,7 +105,7 @@
                                                                 <i data-feather="monitor" class="font-medium-3"></i>
                                                             </div>
                                                         </div>
-                                                        <span>{{ $item->designation }}</span>
+                                                        <span><strong>{{ $item->designation }}</strong></span>
                                                     </div>
                                                 </td>
                                                 <td >{{ $item->date_of_birth }}</td>

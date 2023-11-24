@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Appraisal;
+use App\Models\Loan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -123,6 +124,10 @@ class EmployeeController extends Controller
 
     function loans($id){
         $employee = Employee::find($id);
+        $loan = Loan::where('user_id',$employee->user_id);
+        $loans = $loan->get();
+        $total_loan_amount = $loan->sum('loan_amount');
+        return view('admin.employees.accounts.loans',compact('employee','loans','total_loan_amount'));
     }
 
 

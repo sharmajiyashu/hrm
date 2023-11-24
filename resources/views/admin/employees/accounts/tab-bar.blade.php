@@ -36,7 +36,7 @@
     </li>
 
     <li class="nav-item ">
-        <a class="nav-link {{ Request::routeIs() ? 'active' : '' }}" href="{{ route('admin.employees.loans',$employee->id) }}">
+        <a class="nav-link {{ Request::routeIs('admin.employees.loans') ? 'active' : '' }}" href="{{ route('admin.employees.loans',$employee->id) }}">
             <i data-feather="link" class="font-medium-3 me-50"></i>
             <span class="fw-bold">Loan</span>
         </a>

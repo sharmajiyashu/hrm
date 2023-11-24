@@ -44,51 +44,12 @@
                     @include('admin.employees.accounts.tab-bar')
 
                     <!-- profile -->
-                    <div class="card">
+                    <div class="card card-company-table">
                         <div class="card-header border-bottom">
-                            <h4 class="card-title">Current Salary : 5000</h4>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inlineForm">
-                                Create
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade text-start" id="inlineForm" tabindex="-1" aria-labelledby="myModalLabel33" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel33">Appraisal Create</h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="{{ route('admin.employees.apprisal_save') }}" method="POST">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <label>Appraisal Date </label>
-                                                <div class="mb-1">
-                                                    <input type="month" name="date" required placeholder="Email Address" class="form-control" min="{{ date('Y-m') }}" />
-                                                </div>
+                            <h4 class="card-title">Total Loan Amount  : {{ $total_loan_amount }}</h4>
+                            
+                            <a href="{{ route('admin.loans.create',['user_id' => $employee->user_id]) }}" class="btn btn-outline-primary">Create</a>
 
-                                                <label>Increased Salary </label>
-                                                <div class="mb-1">
-                                                    <input type="number"  name="salary" required placeholder="Increased Salary" class="form-control" />
-                                                </div>
-
-                                                <label>Next Appraisal Date </label>
-                                                <div class="mb-1">
-                                                    <input type="month" name="next_date" required placeholder="Email Address" class="form-control" min="{{ date('Y-m') }}"/>
-                                                </div>
-                                                <input type="hidden" name="user_id" value="{{ $employee->user_id }}">
-
-                                                <label>Remark</label>
-                                                <textarea name="remark" class="form-control" id="" cols="3" rows="3" placeholder="Remark"></textarea>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Login</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         {{-- <div class="card-body py-2 my-25"> --}}
                             <div class="table-responsive">
@@ -96,22 +57,52 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col" >#</th>
-                                            <th scope="col" >Apprisal Date</th>
-                                            <th scope="col" >Salary</th>
-                                            <th scope="col" >Next Date</th>
-                                            <th>Remark</th>
+                                            <th scope="col" >Loan ID</th>
+                                            <th scope="col" >Loan Amount</th>
+                                            <th scope="col" >Emi</th>
+                                            <th scope="col" >Tenure</th>
+                                            <th>Rate of Interest</th>
+                                            <th>Emi Start Month</th>
                                             <th>Created at</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php  $i = 1; @endphp
-                                        @foreach ($apprisals as $item)
+                                        @foreach ($loans as $item)
                                             <tr>
                                                 <td>{{ $i }}</td>
-                                                <td>{{ date('M-Y',strtotime($item->date)) }}</td>
-                                                <td>{{ $item->salary }}</td>
-                                                <td>{{ date('M-Y',strtotime($item->next_date)) }}</td>
-                                                <td>{{ $item->remark }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.loans.show',$item->id) }}">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar rounded">
+                                                                <div class="avatar-content">
+                                                                    <img src="{{ asset('public/admin/app-assets/images/icons/book.svg')}}" alt="Book svg" />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="fw-bolder">{{ $item->loan_id }}</div>
+                                                                {{-- <div class="font-small-2 text-muted">pudais@jife.com</div> --}}
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                    <div class="avatar bg-light-primary me-1">
+                                                        <div class="avatar-content">
+                                                            ₹
+                                                        </div>
+                                                    </div>
+                                                    <span class="text-bold"> 
+                                                        <strong>{{ $item->loan_amount }}</strong>
+                                                   </span>
+                                                  </div>
+                                                </td>
+                                                <td>{{ $item->emi }}</td>
+                                                <td>{{ $item->tenure }}</td>
+                                                <td>{{ $item->interest_amount }}%</td>
+                                                <td>{{ $item->start_month }}</td>
                                                 <td>{{ date('d M-Y',strtotime($item->created_at)) }}</td>
                                             </tr>
                                             @php $i++; @endphp
