@@ -7,10 +7,12 @@ use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Appraisal;
+use App\Models\Emi;
 use App\Models\Loan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
@@ -128,6 +130,41 @@ class EmployeeController extends Controller
         $loans = $loan->get();
         $total_loan_amount = $loan->sum('loan_amount');
         return view('admin.employees.accounts.loans',compact('employee','loans','total_loan_amount'));
+    }
+
+    function salaries($id){
+        $employee = Employee::find($id);
+        $start_date = Carbon::create($employee->date_of_join);
+        $current_date = Carbon::now();
+        $months = collect([]);
+        
+        while ($start_date <= $current_date) {
+            $months->push([
+                'month_name' => $start_date->format('F Y'),
+                'month' => $start_date->format('Y-m-d'),
+            ]);
+            $start_date->addMonth();
+        }
+        
+        $months = $months->reverse();
+        // Paginate the $months array
+        $perPage = 10; // You can set the number of items per page
+        $currentPage = Paginator::resolveCurrentPage('page');
+        $currentPageItems = $months->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $salaries = new \Illuminate\Pagination\LengthAwarePaginator($currentPageItems, count($months), $perPage);
+        // Include the full URL in pagination links
+        $salaries->withPath(url()->current());
+        $data = [];
+        foreach($salaries as $key=>$val){
+            $firstDayOfMonth = Carbon::parse($val['month'])->firstOfMonth();
+            $appraisal = Appraisal::where('user_id',$employee->user_id)->whereDate('date', '<=', $firstDayOfMonth)->first();
+            $sum = Emi::Where('user_id',$employee->user_id)->whereDate('emi_date',$firstDayOfMonth)->sum('emi');
+            $val['salary'] = isset($appraisal->salary) ? $appraisal->salary : $employee->salary;
+            $val['emi'] = $sum;
+            $val['total_amount_tp_pay'] = $val['salary'] - $sum;
+            $data[] = $val;
+        }
+        return view('admin.employees.accounts.salaries', compact('employee', 'salaries','data'));
     }
 
 

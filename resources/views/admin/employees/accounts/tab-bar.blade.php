@@ -29,7 +29,7 @@
     </li>
     <!-- connection -->
     <li class="nav-item">
-        <a class="nav-link" href="page-account-settings-connections.html">
+        <a class="nav-link {{ Request::routeIs('admin.employees.salaries') ? 'active' : '' }}" href="{{ route('admin.employees.salaries',$employee->id) }}">
             <i data-feather="link" class="font-medium-3 me-50"></i>
             <span class="fw-bold">Salary</span>
         </a>
