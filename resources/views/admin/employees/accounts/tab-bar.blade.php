@@ -48,4 +48,11 @@
             <span class="fw-bold">Appraisal</span>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="page-account-settings-notifications.html">
+            <i data-feather="bell" class="font-medium-3 me-50"></i>
+            <span class="fw-bold">Letters</span>
+        </a>
+    </li>
 </ul>

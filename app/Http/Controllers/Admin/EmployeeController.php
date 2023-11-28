@@ -162,6 +162,15 @@ class EmployeeController extends Controller
             $val['salary'] = isset($appraisal->salary) ? $appraisal->salary : $employee->salary;
             $val['emi'] = $sum;
             $val['total_amount_tp_pay'] = $val['salary'] - $sum;
+
+            $deduction = [];
+            if($val['emi'] > 0){
+                $deduction['Emi'] = $val['emi'];
+            }
+            
+
+            $val['deduction'] = $deduction;
+            $val['total_deduction'] = $sum;
             $data[] = $val;
         }
         return view('admin.employees.accounts.salaries', compact('employee', 'salaries','data'));

@@ -58,8 +58,7 @@
                                             <th scope="col" >#</th>
                                             <th scope="col" >Month</th>
                                             <th scope="col" >Salary</th>
-                                            <th>Emi</th>
-                                            <th>Paid Amount</th>
+                                            <th>Deduction</th>
                                             <th>Total Amount <br> to pay</th>
                                         </tr>
                                     </thead>
@@ -73,21 +72,30 @@
                                                     {{-- <i data-feather="trending-down" class="text-danger font-medium-1"></i> --}}
                                                 </td>
                                                 <td>
-                                                    @if ($item['emi'] > 0)
-                                                    ₹{{ isset($item['emi']) ? $item['emi'] :'-' }}    
-                                                        <i data-feather="trending-up" class="text-success font-medium-1"></i>
+                                                    @if ($item['total_deduction'] > 0)
+                                                        <a class="avatar bg-light-danger me-1" data-bs-toggle="collapse" href="#collapseExample{{ $i }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                            <div class="avatar-content">
+                                                                    <i data-feather="eye" class="text-danger font-medium-1"></i>
+                                                            </div>
+                                                        </a>
+                                                        <strong>{{ $item['total_deduction'] }}</strong>
+                                                        <div class="collapse" id="collapseExample{{ $i }}">
+                                                            <div class=" p-1 border">
+                                                                <dl class="row">
+                                                                    @foreach ($item['deduction'] as $key=>$val)
+                                                                        <dt class="col-sm-3">{{ $key }}</dt>
+                                                                        <dd class="col-sm-3">{{ $val }}</dd>    
+                                                                    @endforeach
+                                                                </dl>
+                                                            </div>
+                                                        </div>  
                                                     @else
-                                                        -
+                                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-container="body" title="Popover on bottom" data-bs-content="kapil  jangid">
+                                                        Popover on bottom
+                                                    </button>
+                                                    
                                                     @endif
                                                     
-                                                </td>
-                                                <td>
-                                                    @if ($item['emi'] > 10000000000000000)
-                                                    ₹{{ isset($item['emi']) ? $item['emi'] :'-' }}    
-                                                        <i data-feather="trending-up" class="text-success font-medium-1"></i>
-                                                    @else
-                                                        0
-                                                    @endif
                                                 </td>
                                                 <td>₹{{ isset($item['total_amount_tp_pay']) ? $item['total_amount_tp_pay'] :'-' }}</td>
                                             </tr>

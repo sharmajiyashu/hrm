@@ -23,14 +23,13 @@ Route::middleware(['admin'])->group(function () {
     
     Route::resource('employees',EmployeeController::class);
     Route::resource('loans',LoanController::class);
-    Route::get('employees.appraisals/{id}',[EmployeeController::class,'appraisal'])->name('employees.appraisals');
-    Route::get('employees.loans/{id}',[EmployeeController::class,'loans'])->name('employees.loans');
-    Route::get('employees.salaries/{id}',[EmployeeController::class,'salaries'])->name('employees.salaries');
-    Route::post('employees.apprisal_save',[EmployeeController::class,'apprisalSave'])->name('employees.apprisal_save');
 
-
-
-
+    Route::group(['as' => 'employees.','prefix' => 'employees','controller' => EmployeeController::class ],function () {
+        Route::get('appraisals/{id}', 'appraisal')->name('appraisals');
+        Route::get('loans/{id}', 'loans')->name('loans');
+        Route::get('salaries/{id}', 'salaries')->name('salaries');
+        Route::post('apprisal_save', 'apprisalSave')->name('apprisal_save');
+    });
 
 
 });

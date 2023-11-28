@@ -91,7 +91,7 @@
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div class="fw-bolder">{{ $item->first_name }} {{ $item->last_name }}</div>
+                                                            <div class="fw-bolder"><a href="{{ route('admin.employees.show',$item->id) }}">{{ $item->first_name }} {{ $item->last_name }}</a></div>
                                                             <div class="font-small-2 text-muted">{{ $item->email }}</div>
                                                         </div>
                                                     </div>

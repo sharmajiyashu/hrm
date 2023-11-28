@@ -19,6 +19,8 @@
 <!-- END: Page JS-->
 <script src="{{ asset('public/sweet-alert/sweet.min.js') }}"></script>
 
+<script src="{{ asset('public/admin/app-assets/js/scripts/components/components-popovers.js')}}"></script>
+
 
 <script>
     $(window).on('load', function() {
