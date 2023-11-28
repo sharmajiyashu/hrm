@@ -90,9 +90,9 @@
                                                             </div>
                                                         </div>  
                                                     @else
-                                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-container="body" title="Popover on bottom" data-bs-content="kapil  jangid">
+                                                    {{-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-container="body" title="Popover on bottom" data-bs-content="kapil  jangid">
                                                         Popover on bottom
-                                                    </button>
+                                                    </button> --}}
                                                     
                                                     @endif
                                                     

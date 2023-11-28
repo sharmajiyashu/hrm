@@ -64,6 +64,9 @@
                         <div class="card card-company-table">
                             <div class="card-header">
                                 <h4 class="card-title">Responsive tables</h4>
+                                <div class="col-md-3" style="text-align: end">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                                </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0">
@@ -162,6 +165,13 @@
                                 </table>
                                 @include('admin._pagination', ['data' => $employees])
                             </div>
+                            
+                            {{-- <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <!-- ... (your table structure) ... -->
+                                </table>
+                                {{ $employees->links('admin._pagination') }}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -169,7 +179,7 @@
                 </section>
 
                 <!--/ Ajax Sourced Server-side -->
-
+                
                 
 
             </div>
@@ -177,9 +187,26 @@
     </div>
     <!-- END: Content-->
     <!-- END: Content-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        
-    </script>
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            fetch_data($(this).val());
+        });
+
+        function fetch_data(query = '') {
+            $.ajax({
+                url: "{{ route('admin.employees.index') }}",
+                method: 'GET',
+                data: {search: query},
+                dataType: 'html',
+                success: function (data) {
+                    $('#table-responsive').html(data);
+                }
+            });
+        }
+    });
+</script>
 
 @endsection

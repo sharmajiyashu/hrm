@@ -22,11 +22,28 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index(Request $request)
+    // {
+    //     $page = isset($request->page) ? $request->page : 1;
+    //     $employees = Employee::orderBy('id','desc')->paginate(10, ['*'], 'page', $page);
+    //     return view('admin.employees.index',compact('employees'));
+    // }
+
     public function index(Request $request)
     {
-        $page = isset($request->page) ? $request->page : 1;
-        $employees = Employee::orderBy('id','desc')->paginate(10, ['*'], 'page', $page);
-        return view('admin.employees.index',compact('employees'));
+        $query_search = $request->input('search');
+        $employees = Employee::orderBy('id', 'desc')
+            ->when($query_search, function ($query) use ($query_search) {
+                $query->where('gender', 'like', '%' . $query_search . '%')
+                    ->orWhere('salary', 'like', '%' . $query_search . '%');
+            })
+            ->paginate(10);
+
+        if ($request->ajax()) {
+            return view('admin.employees.pagination', compact('employees'))->render();
+        }
+
+        return view('admin.employees.index', compact('employees'));
     }
 
     /**
