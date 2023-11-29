@@ -33,6 +33,12 @@ class User extends Authenticatable
         return $this->role == '0'; // Adjust this based on your user role implementation
     }
 
+    public function employee()
+    {
+        // Assuming the foreign key is 'user_id' in the 'employees' table
+        return $this->hasOne(Employee::class, 'user_id');
+    }
+
     protected $fillable = [
         'first_name',
         'last_name',

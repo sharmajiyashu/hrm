@@ -59,7 +59,7 @@
                 <!-- Ajax Sourced Server-side -->
                 <section id="ajax-datatable">
                      <!-- Responsive tables start -->
-                <div class="row" id="table-responsive">
+                <div class="row" >
                     <div class="col-12">
                         <div class="card card-company-table">
                             <div class="card-header">
@@ -68,7 +68,7 @@
                                     <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                 </div>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="table-responsive">
                                 <table class="table mb-0">
                                     <thead class="table-dark">
                                         <tr>

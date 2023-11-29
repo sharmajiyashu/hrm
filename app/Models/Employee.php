@@ -29,5 +29,11 @@ class Employee extends Model
         });
     }
 
+    public function user()
+    {
+        // Assuming the foreign key is 'user_id'
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
 }

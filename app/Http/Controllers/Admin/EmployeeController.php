@@ -22,27 +22,25 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index(Request $request)
-    // {
-    //     $page = isset($request->page) ? $request->page : 1;
-    //     $employees = Employee::orderBy('id','desc')->paginate(10, ['*'], 'page', $page);
-    //     return view('admin.employees.index',compact('employees'));
-    // }
 
     public function index(Request $request)
     {
         $query_search = $request->input('search');
-        $employees = Employee::orderBy('id', 'desc')
+        $employees = Employee::orderBy('employees.id', 'desc')
             ->when($query_search, function ($query) use ($query_search) {
-                $query->where('gender', 'like', '%' . $query_search . '%')
-                    ->orWhere('salary', 'like', '%' . $query_search . '%');
+                $query->where('employees.gender', 'like', '%' . $query_search . '%')
+                ->orWhere('users.first_name', 'like', '%' . $query_search . '%')
+                ->orWhere('users.last_name', 'like', '%' . $query_search . '%')
+                ->orWhere('users.mobile', 'like', '%' . $query_search . '%')
+                ->orWhere('users.email', 'like', '%' . $query_search . '%')
+                    ->orWhere('employees.salary', 'like', '%' . $query_search . '%');
             })
+            ->join('users', 'employees.user_id', '=', 'users.id') // Join with the 'users' table
             ->paginate(10);
 
         if ($request->ajax()) {
             return view('admin.employees.pagination', compact('employees'))->render();
         }
-
         return view('admin.employees.index', compact('employees'));
     }
 

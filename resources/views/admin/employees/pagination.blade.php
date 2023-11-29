@@ -1,11 +1,14 @@
-<section id="ajax-datatable">
+{{-- <section id="ajax-datatable">
     <!-- Responsive tables start -->
 <div class="row" id="table-responsive">
    <div class="col-12">
        <div class="card card-company-table">
            <div class="card-header">
                <h4 class="card-title">Responsive tables</h4>
-           </div>
+               <div class="col-md-3" style="text-align: end">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+            </div>
+           </div> --}}
            <div class="table-responsive">
                <table class="table mb-0">
                    <thead class="table-dark">
@@ -110,11 +113,11 @@
                </table>
                {{ $employees->links('admin._pagination') }}
            </div> --}}
-       </div>
+       {{-- </div>
    </div>
 </div>
 <!-- Responsive tables end -->
-</section>
+</section> --}}
 
 
 <script>
