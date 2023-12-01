@@ -3,11 +3,12 @@
 
 <!-- BEGIN: Main Menu-->
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item me-auto"><a class="navbar-brand" href="{{ route('home') }}">
                     
-                    <h2 class="brand-text">Premad Software</h2>
+                <img src="{{ asset('public/logo_new_white.png') }}" alt="" width="100%">
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
@@ -35,6 +36,16 @@
                     </li>
 
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.clients.create') ? 'active' : '' }} " href="{{ route('admin.clients.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item {{ Request::routeIs('admin.projects.index','admin.projects.create','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="database"></i><span class="menu-title text-truncate" data-i18n="Invoice">Project</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.projects.index','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'active' : '' }} " href="{{ route('admin.projects.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    </li>
+
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.projects.create') ? 'active' : '' }} " href="{{ route('admin.projects.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
                     </li>
                 </ul>
             </li>
