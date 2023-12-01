@@ -1577,8 +1577,9 @@ select:-webkit-autofill {
   color: #5e5873; }
 
 .nav-pills .nav-link.active {
-  border-color: #4a6287;
-  box-shadow: 0 4px 18px -4px rgb(86 113 157); }
+  border-color: #000000;
+  box-shadow: 0 4px 18px -4px rgb(0 0 0);
+}
 
 .nav-pills .nav-link.disabled {
   color: #b9b9c3; }

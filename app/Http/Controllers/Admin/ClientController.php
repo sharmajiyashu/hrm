@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $query_search = $request->input('search');
-        $clients = Client::when($query_search, function ($query) use ($query_search) {
+        $clients = Client::select('users.first_name as first_name','clients.*')->when($query_search, function ($query) use ($query_search) {
                 $query->where('clients.gst_number', 'like', '%' . $query_search . '%')
                 ->orWhere('users.first_name', 'like', '%' . $query_search . '%')
                 ->orWhere('users.last_name', 'like', '%' . $query_search . '%')
@@ -30,7 +31,6 @@ class ClientController extends Controller
             })
             ->join('users', 'clients.user_id', '=', 'users.id') // Join with the 'users' table
             ->paginate(10);
-        // $clients = [];
         if ($request->ajax()) {
             return view('admin.clients.pagination', compact('clients'))->render();
         }
@@ -77,7 +77,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return view('admin.clients.show',compact('client'));
     }
 
     /**
@@ -113,4 +113,14 @@ class ClientController extends Controller
     {
         //
     }
+
+
+    function invoices($id ,Request $request){
+        $client = Client::find($id);
+        $page = isset($request->page) ? $request->page : 1;
+        $invoices = Invoice::orderBy('id','desc')->paginate(10, ['*'], 'page', $page);
+        return view('admin.clients.accounts.invoices',compact('client','invoices'));
+    }
+
+
 }

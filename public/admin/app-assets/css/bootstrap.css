@@ -3322,7 +3322,8 @@ fieldset:disabled .btn {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #4a6287; }
+  background-color: #4b4b4b; 
+}
 
 .nav-fill > .nav-link,
 .nav-fill .nav-item {

@@ -13,14 +13,14 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Employee</h2>
+                        <h2 class="content-header-title float-start mb-0">client</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.employees.index') }}">Employees</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.clients.index') }}">clients</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">{{ $employee->first_name }} {{ $employee->last_name }}</a>
+                                <li class="breadcrumb-item"><a href="#">{{ $client->first_name }} {{ $client->last_name }}</a>
                                 </li>
                                 <li class="breadcrumb-item active"> Account
                                 </li>
@@ -41,13 +41,14 @@
         <div class="content-body">
             <div class="row">
                 <div class="col-12">
-                    @include('admin.employees.accounts.tab-bar')
+                    @include('admin.clients.accounts.tab-bar')
 
                     <!-- profile -->
                     <div class="card card-company-table">
                         <div class="card-header border-bottom">
-                            <h4 class="card-title">Current Salary  : {{ $employee->salary }}</h4>
-                            <a href="#" class="btn btn-outline-primary">Make Advance</a>
+                            <h4 class="card-title">Total Loan Amount  :</h4>
+                            
+                            <a href="{{ route('admin.invoices.create',['user_id' => $client->user_id]) }}" class="btn btn-outline-primary">Create</a>
 
                         </div>
                         {{-- <div class="card-body py-2 my-25"> --}}
@@ -56,55 +57,47 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col" >#</th>
-                                            <th scope="col" >Month</th>
-                                            <th scope="col" >Salary</th>
-                                            <th>Deduction</th>
-                                            <th>Total Amount <br> to pay</th>
+                                            <th scope="col" >Loan ID</th>
+                                            <th scope="col" >Loan Amount</th>
+                                            <th scope="col" >Emi</th>
+                                            <th scope="col" >Tenure</th>
+                                            <th>Rate of Interest</th>
+                                            <th>Emi Start Month</th>
+                                            <th>Created at</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php  $i = 1; @endphp
-                                        @foreach ($data as $item)
+                                        @foreach ($invoices as $item)
                                             <tr>
                                                 <td>{{ $i }}</td>
-                                                <td><strong>{{ $item['month_name'] }}</strong></td>
-                                                <td>₹{{ isset($item['salary']) ? $item['salary'] :'-' }}
-                                                    {{-- <i data-feather="trending-down" class="text-danger font-medium-1"></i> --}}
+                                                <td>
+                                                   
+                                                    
                                                 </td>
                                                 <td>
-                                                    @if ($item['total_deduction'] > 0)
-                                                        <a class="avatar bg-light-danger me-1" data-bs-toggle="collapse" href="#collapseExample{{ $i }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                            <div class="avatar-content">
-                                                                    <i data-feather="eye" class="text-danger font-medium-1"></i>
-                                                            </div>
-                                                        </a>
-                                                        <strong>{{ $item['total_deduction'] }}</strong>
-                                                        <div class="collapse" id="collapseExample{{ $i }}">
-                                                            <div class=" p-1 border">
-                                                                <dl class="row">
-                                                                    @foreach ($item['deduction'] as $key=>$val)
-                                                                        <dt class="col-sm-3">{{ $key }}</dt>
-                                                                        <dd class="col-sm-3">{{ $val }}</dd>    
-                                                                    @endforeach
-                                                                </dl>
-                                                            </div>
-                                                        </div>  
-                                                    @else
-                                                    {{-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-container="body" title="Popover on bottom" data-bs-content="kapil  jangid">
-                                                        Popover on bottom
-                                                    </button> --}}
-                                                    
-                                                    @endif
-                                                    
+                                                    <div class="d-flex align-items-center">
+                                                    <div class="avatar bg-light-primary me-1">
+                                                        <div class="avatar-content">
+                                                            ₹
+                                                        </div>
+                                                    </div>
+                                                    <span class="text-bold"> 
+                                                        <strong>{{ $item->loan_amount }}</strong>
+                                                   </span>
+                                                  </div>
                                                 </td>
-                                                <td>₹{{ isset($item['total_amount_tp_pay']) ? $item['total_amount_tp_pay'] :'-' }}</td>
+                                                <td>{{ $item->emi }}</td>
+                                                <td>{{ $item->tenure }}</td>
+                                                <td>{{ $item->interest_amount }}%</td>
+                                                <td>{{ $item->start_month }}</td>
+                                                <td>{{ date('d M-Y',strtotime($item->created_at)) }}</td>
                                             </tr>
                                             @php $i++; @endphp
                                         @endforeach
                                         
                                     </tbody>
                                 </table>
-                                @include('admin._pagination', ['data' => $salaries])
                                 
                             </div>
                         {{-- </div> --}}

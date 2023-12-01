@@ -13,14 +13,14 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Employee</h2>
+                        <h2 class="content-header-title float-start mb-0">Client</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.employees.index') }}">Employees</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.clients.index') }}">lients</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">{{ $employee->first_name }} {{ $employee->last_name }}</a>
+                                <li class="breadcrumb-item"><a href="#">{{ $client->first_name }} {{ $client->last_name }}</a>
                                 </li>
                                 <li class="breadcrumb-item active"> Account
                                 </li>
@@ -41,7 +41,7 @@
         <div class="content-body">
             <div class="row">
                 <div class="col-12">
-                    @include('admin.employees.accounts.tab-bar')
+                    @include('admin.clients.accounts.tab-bar')
                     <!-- profile -->
                     <div class="card">
                         <div class="card-header border-bottom">
@@ -71,27 +71,27 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountFirstName">First Name</label>
-                                        <input type="text" class="form-control" id="accountFirstName" name="firstName" placeholder="John" value="{{ $employee->first_name }}" data-msg="Please enter first name" />
+                                        <input type="text" class="form-control" id="accountFirstName" name="firstName" placeholder="John" value="{{ $client->first_name }}" data-msg="Please enter first name" />
                                     </div>
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountLastName">Last Name</label>
-                                        <input type="text" class="form-control" id="accountLastName" name="lastName" placeholder="Doe" value="{{ $employee->last_name }}" data-msg="Please enter last name" />
+                                        <input type="text" class="form-control" id="accountLastName" name="lastName" placeholder="Doe" value="{{ $client->last_name }}" data-msg="Please enter last name" />
                                     </div>
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountEmail">Email</label>
-                                        <input type="email" class="form-control" id="accountEmail" name="email" placeholder="Email" value="{{ $employee->email }}" />
+                                        <input type="email" class="form-control" id="accountEmail" name="email" placeholder="Email" value="{{ $client->email }}" />
                                     </div>
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountOrganization">Mobile</label>
-                                        <input type="text" class="form-control" id="accountOrganization" name="organization" placeholder="Organization name" value="{{ $employee->mobile }}" />
+                                        <input type="text" class="form-control" id="accountOrganization" name="organization" placeholder="Organization name" value="{{ $client->mobile }}" />
                                     </div>
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountPhoneNumber">Date Of Birth</label>
-                                        <input type="text" class="form-control account-number-mask" id="accountPhoneNumber" name="phoneNumber" placeholder="Phone Number" value="{{ $employee->date_of_birth }}" />
+                                        <input type="text" class="form-control account-number-mask" id="accountPhoneNumber" name="phoneNumber" placeholder="Phone Number" value="{{ $client->date_of_birth }}" />
                                     </div>
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountAddress">Date Of Join</label>
-                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $employee->date_of_join }}" />
+                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $client->date_of_join }}" />
                                     </div>
 
                                     <div class="col-12 col-sm-6 mb-1">
@@ -99,14 +99,14 @@
                                         <select id="country" class="select2 form-select">
                                             <option value="">Select Country</option>
                                             @foreach (config('states') as $state => $item)
-                                                <option value="{{ $state }}" {{ ($employee->state == $state) ? 'selected' : '' }}>{{ $state }}</option>
+                                                <option value="{{ $state }}" {{ ($client->state == $state) ? 'selected' : '' }}>{{ $state }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="col-12 col-sm-6 mb-1">
                                         <label class="form-label" for="accountAddress">City</label>
-                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $employee->city }}" />
+                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $client->city }}" />
                                     </div>
                                     
                                     <div class="col-12">

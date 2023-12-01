@@ -57,8 +57,8 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="#" class="brand-logo">
-                                    
-                                    <h2 class="brand-text text-primary ms-1" style="color:#386fb9 !important;">Premad Software Solution</h2>
+                                    <img src="{{ asset('public/logo_new_white.png') }}" alt="" width="100">
+                                    {{-- <h2 class="brand-text text-primary ms-1" style="color:#386fb9 !important;">Premad Software Solution</h2> --}}
                                 </a>
 
                                 @if ($errors->any())
@@ -72,7 +72,7 @@
                                     @endforeach
                                 @endif
 
-                                <h4 class="card-title mb-1">Welcome to Premad! 👋</h4>
+                                <h4 class="card-title mb-1">Welcome to Premad Software Solution! 👋</h4>
                                 <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
                                 <form class="auth-login-form mt-2" action="{{ route('check_login') }}" method="POST">
