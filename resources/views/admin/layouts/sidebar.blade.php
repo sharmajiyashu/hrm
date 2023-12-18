@@ -60,6 +60,16 @@
                 </ul>
             </li>
 
+            <li class=" nav-item {{ Request::routeIs('admin.invoices.index','admin.invoices.create','admin.invoices.show','admin.invoices.appraisals','') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Invoice</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.invoices.index','admin.invoices.show','admin.invoices.appraisals') ? 'active' : '' }} " href="{{ route('admin.invoices.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    </li>
+
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.invoices.create') ? 'active' : '' }} " href="{{ route('admin.invoices.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
+                    </li>
+                </ul>
+            </li>
+
             <li class=" nav-item {{ Request::routeIs() ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="settings"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Employee <br> Management</span></a>
@@ -69,6 +79,8 @@
                     </li>
                 </ul>
             </li>
+
+            
 
            
         

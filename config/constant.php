@@ -21,4 +21,14 @@ return [
         '5' => 'Application Development',
         '6' => 'System Meintenance'
     ],
+
+    'invoice' => [
+        'company_name' => 'Premad Software Solutions Pvt. Ltd.',
+        'company_address' => '103-CS/ 22, Sector 10, Pratap Nagar,',
+        'company_state_city' => 'Jaipur, 302033, India',
+        'company_contect' => 'Phone: +91-774-242-1918 | Email: info@premad.in',
+        'company_gst' => 'G.S.T: 08AALCP8043N1ZQ'
+    ],
+    'logo' => 'logo_new_white.png',
+    
 ];

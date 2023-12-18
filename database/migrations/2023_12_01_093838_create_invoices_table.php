@@ -23,6 +23,9 @@ return new class extends Migration
             $table->float('discount')->default(0);
             $table->float('gst')->default(0);
             $table->float('total')->default(0);
+            $table->float('paid_amount')->default(0);
+            $table->float('due_amount')->default(0);
+            $table->date('due_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

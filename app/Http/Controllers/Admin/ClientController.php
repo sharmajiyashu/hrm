@@ -21,13 +21,14 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $query_search = $request->input('search');
-        $clients = Client::select('users.first_name as first_name','clients.*')->when($query_search, function ($query) use ($query_search) {
+        $clients = Client::select('users.first_name as first_name','clients.*')
+        ->when($query_search, function ($query) use ($query_search) {
                 $query->where('clients.gst_number', 'like', '%' . $query_search . '%')
                 ->orWhere('users.first_name', 'like', '%' . $query_search . '%')
                 ->orWhere('users.last_name', 'like', '%' . $query_search . '%')
                 ->orWhere('users.mobile', 'like', '%' . $query_search . '%')
                 ->orWhere('users.email', 'like', '%' . $query_search . '%')
-                    ->orWhere('clients.company_name', 'like', '%' . $query_search . '%');
+                ->orWhere('clients.company_name', 'like', '%' . $query_search . '%');
             })
             ->join('users', 'clients.user_id', '=', 'users.id') // Join with the 'users' table
             ->paginate(10);

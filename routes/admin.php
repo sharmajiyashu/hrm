@@ -30,6 +30,9 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('projects',ProjectController::class);
     Route::resource('invoices',InvoiceController::class);
 
+    Route::group(['as' => 'invoices.','prefix' => 'invoices','controller' => InvoiceController::class ],function () {
+        Route::get('print/{id}','print')->name('print');
+    });
 
     Route::group(['as' => 'clients.','prefix' => 'clients','controller' => ClientController::class ],function () {
         Route::get('invoices/{id}','invoices')->name('invoices');

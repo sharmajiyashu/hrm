@@ -24,12 +24,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Loan</h2>
+                            <h2 class="content-header-title float-start mb-0">Invoice</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{  route('admin.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('admin.loans.index') }}">Loans</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}">Invoices</a>
                                     </li>
                                     <li class="breadcrumb-item active">List
                                     </li>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" style="text-align: end">
-                    <a href="{{ route('admin.loans.create') }}" class=" btn btn-primary btn-gradient round  ">Create</a>
+                    <a href="{{ route('admin.invoices.create') }}" class=" btn btn-primary btn-gradient round  ">Create</a>
                 </div>
             </div>
             <div class="content-body">
@@ -59,29 +59,34 @@
                 <!-- Ajax Sourced Server-side -->
                 <section id="ajax-datatable">
                      <!-- Responsive tables start -->
-                <div class="row" id="table-responsive">
+                <div class="row" >
                     <div class="col-12">
                         <div class="card card-company-table">
                             <div class="card-header">
                                 <h4 class="card-title">Responsive tables</h4>
+                                <div class="col-md-3" style="text-align: end">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                                </div>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="table-responsive">
                                 <table class="table mb-0">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col" >#</th>
                                             <th scope="col" >Name</th>
-                                            <th scope="col" >Loan ID</th>
-                                            <th scope="col" >Loan Amount</th>
-                                            <th scope="col" >Rate of Interest</th>
-                                            <th scope="col" >Emi</th>
-                                            <th>Start From</th>
+                                            <th scope="col" >Sub total</th>
+                                            <th scope="col" >Tax Rate</th>
+                                            <th scope="col" >Tax Amount</th>
+                                            <th scope="col" >Total</th>
+                                            <th scope="col" >Paid Amount</th>
+                                            <th>Due Amount</th>
+                                            <th>status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php  $i = ($loans->currentPage() - 1) * $loans->perPage() + 1; @endphp
-                                        @foreach ($loans as $item)
+                                        @php  $i = ($invoices->currentPage() - 1) * $invoices->perPage() + 1; @endphp
+                                        @foreach ($invoices as $item)
                                             <tr>
                                                 <td >{{ $i }}</td>
                                                 <td>
@@ -97,33 +102,28 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td ><strong>{{ $item->loan_id }}</strong></td>
-                                                <td >{{ $item->loan_amount }}</td>
-                                                <td >
-                                                    {{-- <div class="d-flex align-items-center">
-                                                        <div class="avatar bg-light-primary me-1">
-                                                            <div class="avatar-content">
-                                                                <i data-feather="monitor" class="font-medium-3"></i>
-                                                            </div>
-                                                        </div>--}}
-                                                        <span class=""> 
-                                                            {{ $item->rate_of_interest }}%
-                                                       </span>
-                                                      {{-- </div> --}}
-                                                </td>
-                                                <td class="fw-bolder me-1">{{ $item->emi }}</td>
-                                                <td>{{ $item->start_month }}</td>
+                                                <td ><strong>{{ $item->sub_total }}</strong></td>
+                                                <td >{{ $item->tax_rate }} %</td>
+                                                <td>{{ $item->tax }}</td>
+                                                <td class="fw-bolder me-1">{{ $item->total }}</td>
+                                                <td>{{ $item->paid_amount }}</td>
+                                                <td>{{ $item->due_amount }}</td>
+                                                @if ($item->due_amount > 0)
+                                                    <td><span class="badge rounded-pill badge-light-danger"> Due</span></td>
+                                                @else
+                                                    <td><span class="badge rounded-pill badge-light-success"> Paid</span></td>
+                                                @endif
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
                                                             <i data-feather="more-vertical"></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="{{route('admin.loans.edit',$item->id)}}">
+                                                            <a class="dropdown-item" href="{{route('admin.invoices.edit',$item->id)}}">
                                                                 <i data-feather="edit-2" class="me-50"></i>
                                                                 <span>Edit</span>
                                                             </a>
-                                                            <a class="dropdown-item" href="{{route('admin.loans.show',$item->id)}}">
+                                                            <a class="dropdown-item" href="{{route('admin.invoices.show',$item->id)}}">
                                                                 <i data-feather="eye" class="me-50"></i>
                                                                 <span>View</span>
                                                             </a>
@@ -145,7 +145,7 @@
                                                                     <div class="modal-body">
                                                                         Are you sure you want to delete !
                                                                     </div>
-                                                                    <form action="{{route('admin.loans.destroy',$item->id)}}" method="POST">
+                                                                    <form action="{{route('admin.invoices.destroy',$item->id)}}" method="POST">
                                                                         @csrf
                                                                         @method('delete')
                                                                         <div class="modal-footer">
@@ -164,7 +164,7 @@
                                         
                                     </tbody>
                                 </table>
-                                @include('admin._pagination', ['data' => $loans])
+                                @include('admin._pagination', ['data' => $invoices])
                             </div>
                         </div>
                     </div>
@@ -181,6 +181,28 @@
     </div>
     <!-- END: Content-->
     <!-- END: Content-->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                fetch_data($(this).val());
+            });
+
+            function fetch_data(query = '') {
+                $.ajax({
+                    url: "{{ route('admin.invoices.index') }}",
+                    method: 'GET',
+                    data: {search: query},
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#table-responsive').html(data);
+                    }
+                });
+            }
+        });
+    </script>
 
     <script>
         
