@@ -28,3 +28,7 @@ Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::group(['as' => 'admin.','prefix' => 'admin'],function () {
     require __DIR__.'/admin.php';
 });
+
+Route::group(['as' => 'employee.','prefix' => 'employee'],function () {
+    require __DIR__.'/employee.php';
+});

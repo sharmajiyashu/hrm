@@ -16,6 +16,8 @@ class Controller extends BaseController
         if (auth()->check()) {
             if(Auth::user()->isAdmin()){
                 return redirect()->route('admin.dashboard');
+            }elseif(Auth::user()->isEmployee()){
+                return redirect()->route('employee.dashboard');
             }
         } else {
             return redirect()->route('login');
