@@ -198,6 +198,31 @@
         });
     }
 
+    function punchOut(){
+        $.ajax({
+            url: "{{ route('employee.punch_out') }}",
+            type: 'GET',
+            dataType: 'json', // Specify the expected data type
+            success: function (data) {
+                if(data.status == 1){
+                    getPunchTimer();
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Break out Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }); 
+
+                    var audio = new Audio('{{ asset('public/sweet-alert/success.mp3') }}'); // Adjust the path to your sound file
+                    audio.play();
+                }
+            },
+            error: function (error) {   
+                console.log(error);
+            }
+        });
+    }
+
 
     function getPunchTimer(){
         $.ajax({
@@ -222,6 +247,14 @@
                         });
                         document.getElementById('punch_out_button').style.display = '';
                         document.getElementById('break_out_button').style.display = '';
+                        clearInterval(timerInterval);
+                    }else if(data.status == 3){
+                        var timerElements = document.querySelectorAll('.punch_time');
+                        timerElements.forEach(function (timerElement) {
+                            timerElement.textContent = data.time;
+                        });
+                        // document.getElementById('punch_out_button').style.display = '';
+                        // document.getElementById('break_out_button').style.display = '';
                         clearInterval(timerInterval);
                     }
 

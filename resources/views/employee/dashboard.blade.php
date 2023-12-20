@@ -15,13 +15,13 @@
                     <div class="col-xl-4 col-md-6 col-12">
                         <div class="card card-congratulation-medal">
                             <div class="card-body">
-                                <h5>Congratulations 🎉 John!</h5>
+                                <h5>Congratulations 🎉 {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}!</h5>
                                 <p class="card-text font-small-3">You have won gold medal</p>
                                 <h3 class="mb-75 mt-2 pt-50">
                                     <a href="#">$48.9k</a>
                                 </h3>
                                 <button type="button" class="btn btn-primary">View Sales</button>
-                                <img src="{{ asset('public/admin/app-assets/images/illustration/badge.svg')}}')}}" class="congratulation-medal" alt="Medal Pic" />
+                                <img src="{{ asset('public/admin/app-assets/images/illustration/badge.svg')}}" class="congratulation-medal" alt="Medal Pic" />
                             </div>
                         </div>
                     </div>
@@ -46,8 +46,8 @@
                                                 </div>
                                             </div>
                                             <div class="my-auto">
-                                                <h4 class="fw-bolder mb-0">230k</h4>
-                                                <p class="card-text font-small-3 mb-0">Sales</p>
+                                                <h4 class="fw-bolder mb-0">0</h4>
+                                                <p class="card-text font-small-3 mb-0">Projects</p>
                                             </div>
                                         </div>
                                     </div>
@@ -59,8 +59,8 @@
                                                 </div>
                                             </div>
                                             <div class="my-auto">
-                                                <h4 class="fw-bolder mb-0">8.549k</h4>
-                                                <p class="card-text font-small-3 mb-0">Customers</p>
+                                                <h4 class="fw-bolder mb-0">0</h4>
+                                                <p class="card-text font-small-3 mb-0">Tasks</p>
                                             </div>
                                         </div>
                                     </div>
@@ -72,8 +72,8 @@
                                                 </div>
                                             </div>
                                             <div class="my-auto">
-                                                <h4 class="fw-bolder mb-0">1.423k</h4>
-                                                <p class="card-text font-small-3 mb-0">Products</p>
+                                                <h4 class="fw-bolder mb-0">0</h4>
+                                                <p class="card-text font-small-3 mb-0">Half-day</p>
                                             </div>
                                         </div>
                                     </div>
@@ -85,8 +85,8 @@
                                                 </div>
                                             </div>
                                             <div class="my-auto">
-                                                <h4 class="fw-bolder mb-0">$9745</h4>
-                                                <p class="card-text font-small-3 mb-0">Revenue</p>
+                                                <h4 class="fw-bolder mb-0">0</h4>
+                                                <p class="card-text font-small-3 mb-0">Total Leves</p>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                     <!--/ Statistics Card -->
                 </div>
 
-                <div class="row match-height">
+                {{-- <div class="row match-height">
                     <div class="col-lg-4 col-12">
                         <div class="row match-height">
                             <!-- Bar Chart - Orders -->
@@ -732,7 +732,7 @@
                         </div>
                     </div>
                     <!--/ Transaction Card -->
-                </div>
+                </div> --}}
             </section>
             <!-- Dashboard Ecommerce ends -->
 

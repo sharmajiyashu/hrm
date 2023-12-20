@@ -32,7 +32,7 @@
                         <div class="d-flex justify-content-between mb-1">
                             <a class="btn btn-danger w-49" href="#" id="break_in_button" style="display: none" onclick="breakIn()">Break In</a>
                             <a class="btn btn-warning w-49" href="#" id="break_out_button" style="display: none" onclick="breakOut()">Break Out</a>
-                            <a class="btn btn-dark w-49" href="#" id="punch_out_button" style="display: none">Punch out</a>
+                            <a class="btn btn-dark w-49" href="#" id="punch_out_button" style="display: none" onclick="punchOut()">Punch out</a>
                             <a class="btn btn-primary w-100" href="#" id="punch_in_button" onclick="punchIn()" style="display: none">Punch In</a>
                         </div>
                     </li>

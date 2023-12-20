@@ -26,6 +26,7 @@ Route::middleware(['employee'])->group(function () {
     Route::get('punch_in',[PunchTimeController::class,'punchIn'])->name('punch_in');
     Route::get('break_in',[PunchTimeController::class,'breakIn'])->name('break_in');
     Route::get('break_out',[PunchTimeController::class,'breakOut'])->name('break_out');
+    Route::get('punch_out',[PunchTimeController::class,'punchOut'])->name('punch_out');
 
 });
 

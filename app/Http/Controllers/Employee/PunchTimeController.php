@@ -112,7 +112,12 @@ class PunchTimeController extends Controller
         $get_time = PunchTime::where('user_id', auth()->user()->id)->whereDate('created_at', $time)->first();
         $get_break_time = Breaktime::where('user_id', auth()->user()->id)->whereDate('created_at', $time)->orderby('id','desc')->first();
         $startTime = Carbon::parse($get_time->punch_in);
-        $endTime = Carbon::now();
+        if(!empty($get_time->punch_out)){
+            $endTime = Carbon::parse($get_time->punch_out);
+            $punch_out_is = '1';
+        }else{
+            $endTime = Carbon::now();
+        }
         $timeDifferenceInSeconds = $endTime->diffInSeconds($startTime);
         if(!empty($get_break_time)){
             $break_times = Breaktime::where('user_id', auth()->user()->id)->whereDate('created_at', $time)->orderby('id','asc')->get();
@@ -134,30 +139,34 @@ class PunchTimeController extends Controller
             $total_deff_seconds = $timeDifferenceInSeconds - $sum_of_break_second;
             $timeFormatted = gmdate('H:i:s', $total_deff_seconds);
             if(!empty($get_break_time->break_out)){
-                return json_encode([
+                $return_data = [
                     'status' => 1,
-                    'time' => 15,
+                    'time' => gmdate('H:i:s', $total_deff_seconds),
                     'second' => $total_deff_seconds,
                     'message' => 'Timer Continue'
-                ]);
+                ];
             }else{
-                return json_encode([
+                $return_data = [
                     'status' => 2,
                     'time' => $timeFormatted,
                     'second' => $timeDifferenceInSeconds - $sum_of_break_second,
                     'message' => 'On Break'
-                ]);
+                ];
             }
         }else{
-            return json_encode([
+            $return_data = [
                 'status' => 1,
-                'time' => 15,
+                'time' => gmdate('H:i:s', $timeDifferenceInSeconds),
                 'second' => $timeDifferenceInSeconds,
                 'message' => 'Timer Continue'
-            ]);
+            ];
+            
         }
-        
-        
+        if($punch_out_is == 1){
+            $return_data['status'] = 3;
+            $return_data['message'] = 'Punch Out';
+        }
+        return json_encode($return_data);
     }
 
 
@@ -222,6 +231,31 @@ class PunchTimeController extends Controller
             if(!empty($get_time)){
                 if(empty($get_time->break_out)){
                     $get_time->update(['break_out' => date('H:i:s')]);
+                    return json_encode([
+                        'status' => 1,
+                    ]);
+                }else{
+                    return json_encode([
+                        'status' => 0,
+                    ]);    
+                }
+            }else{
+                return json_encode([
+                    'status' => 0,
+                ]);
+            }
+        }{
+
+        }
+    }
+
+    function punchOut(){
+        if(auth()->check()){
+            $today = Carbon::today();
+            $get_time = PunchTime::where('user_id', auth()->user()->id)->whereDate('created_at', $today)->orderBy('id','desc')->first();
+            if(!empty($get_time)){
+                if(empty($get_time->punch_out)){
+                    $get_time->update(['punch_out' => date('H:i:s')]);
                     return json_encode([
                         'status' => 1,
                     ]);
