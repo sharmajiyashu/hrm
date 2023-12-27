@@ -30,5 +30,16 @@ return [
         'company_gst' => 'G.S.T: 08AALCP8043N1ZQ'
     ],
     'logo' => 'logo_new_white.png',
+
+    'paid_leave_for_menth' => 1.5,
+
+    'leave_reasones' => [
+        '1' => 'Injury or illness',
+        '2' => 'Medical appointments',
+        '3' => 'Family emergencies',
+        '4' => 'Home emergencies',
+        '5' => 'Religious reasons',
+        '6' => 'Other work commitments',
+    ]
     
 ];

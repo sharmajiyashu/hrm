@@ -39,6 +39,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/admin/app-assets/css/components.css')}}">
     <!-- END: Page CSS-->
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/admin/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/admin/app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/css/style.css')}}">
     <!-- END: Custom CSS-->

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Employee\ApplyLeaveController;
 use App\Http\Controllers\Employee\PunchTimeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::middleware(['employee'])->group(function () {
     Route::get('break_in',[PunchTimeController::class,'breakIn'])->name('break_in');
     Route::get('break_out',[PunchTimeController::class,'breakOut'])->name('break_out');
     Route::get('punch_out',[PunchTimeController::class,'punchOut'])->name('punch_out');
+
+
+    Route::resource('apply_leaves',ApplyLeaveController::class);
 
 });
 

@@ -162,6 +162,7 @@ class PunchTimeController extends Controller
             ];
             
         }
+        $punch_out_is = isset($punch_out_is) ? $punch_out_is :'';
         if($punch_out_is == 1){
             $return_data['status'] = 3;
             $return_data['message'] = 'Punch Out';
