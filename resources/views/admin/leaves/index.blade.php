@@ -1,5 +1,5 @@
 
-@extends('employee.layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 
@@ -24,12 +24,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Project</h2>
+                            <h2 class="content-header-title float-start mb-0">Employee</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{  route('employee.dashboard') }}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{  route('admin.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">apply_leaves</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('admin.leaves.index') }}">leaves</a>
                                     </li>
                                     <li class="breadcrumb-item active">List
                                     </li>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" style="text-align: end">
-                    <a href="{{ route('employee.apply_leaves.create') }}" class=" btn btn-primary btn-gradient round  ">Create</a>
+                    <a href="{{ route('admin.leaves.create') }}" class=" btn btn-primary btn-gradient round  ">Create</a>
                 </div>
             </div>
             <div class="content-body">
@@ -73,32 +73,34 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col" >#</th>
+                                            <th scope="col" >Name</th>
                                             <th scope="col" >Type</th>
-                                            <th scope="col" >Date</th>
-                                            <th>Leave Days</th>
-                                            <th>Approved Leaves</th>
-                                            <th scope="col" >Status</th>
+                                            <th scope="col" >Dates</th>
+                                            <th scope="col" >Days</th>
+                                            <th scope="col" >Approved Days</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php  $i = ($apply_leaves->currentPage() - 1) * $apply_leaves->perPage() + 1; @endphp
-                                        @foreach ($apply_leaves as $item)
+                                        @php  $i = ($leaves->currentPage() - 1) * $leaves->perPage() + 1; @endphp
+                                        @foreach ($leaves as $item)
                                             <tr>
                                                 <td >{{ $i }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        {{-- <div class="avatar rounded"> --}}
-                                                            {{-- <div class="avatar-content"> --}}
-                                                                {{-- <img src="{{ asset('public/employee/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" /> --}}
-                                                            {{-- </div> --}}
-                                                        {{-- </div> --}}
+                                                        <div class="avatar rounded">
+                                                            <div class="avatar-content">
+                                                                <img src="{{ asset('public/admin/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
+                                                            </div>
+                                                        </div>
                                                         <div>
-                                                            <div class="fw-bolder"><a href="{{ route('employee.apply_leaves.show',$item->id) }}">{{ $item->type }}</a></div>
+                                                            <div class="fw-bolder"><a href="{{ route('admin.leaves.show',$item->id) }}">{{ $item->first_name }} {{ $item->last_name }}</a></div>
+                                                            <div class="font-small-2 text-muted">{{ $item->email }}</div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                
+                                                <td >{{ $item->type }}</td>
                                                 <td >
                                                     <div class="d-flex align-items-center">
                                                         <div class="avatar bg-light-primary me-1">
@@ -109,7 +111,7 @@
                                                         <span><strong>{{ $item->date }}</strong></span>
                                                     </div>
                                                 </td>
-                                                <td><strong>{{ $item->leave_days }}</strong></td>
+                                                <td ><strong>{{ $item->leave_days }}</strong></td>
                                                 <td class="text-success"><strong>{{ $item->approved_leave }}</strong></td>
                                                 <td>
                                                     @if ($item->status == 0)
@@ -128,11 +130,11 @@
                                                             <i data-feather="more-vertical"></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="{{route('employee.apply_leaves.edit',$item->id)}}">
+                                                            <a class="dropdown-item" href="{{route('admin.leaves.edit',$item->id)}}">
                                                                 <i data-feather="edit-2" class="me-50"></i>
                                                                 <span>Edit</span>
                                                             </a>
-                                                            <a class="dropdown-item" href="{{route('employee.apply_leaves.show',$item->id)}}">
+                                                            <a class="dropdown-item" href="{{route('admin.leaves.show',$item->id)}}">
                                                                 <i data-feather="eye" class="me-50"></i>
                                                                 <span>View</span>
                                                             </a>
@@ -154,7 +156,7 @@
                                                                     <div class="modal-body">
                                                                         Are you sure you want to delete !
                                                                     </div>
-                                                                    <form action="{{route('employee.apply_leaves.destroy',$item->id)}}" method="POST">
+                                                                    <form action="{{route('admin.leaves.destroy',$item->id)}}" method="POST">
                                                                         @csrf
                                                                         @method('delete')
                                                                         <div class="modal-footer">
@@ -173,14 +175,14 @@
                                         
                                     </tbody>
                                 </table>
-                                @include('employee._pagination', ['data' => $apply_leaves])
+                                @include('admin._pagination', ['data' => $leaves])
                             </div>
                             
                             {{-- <div class="table-responsive">
                                 <table class="table mb-0">
                                     <!-- ... (your table structure) ... -->
                                 </table>
-                                {{ $apply_leaves->links('employee._pagination') }}
+                                {{ $leaves->links('admin._pagination') }}
                             </div> --}}
                         </div>
                     </div>
@@ -207,7 +209,7 @@
 
         function fetch_data(query = '') {
             $.ajax({
-                url: "{{ route('employee.apply_leaves.index') }}",
+                url: "{{ route('admin.leaves.index') }}",
                 method: 'GET',
                 data: {search: query},
                 dataType: 'html',
