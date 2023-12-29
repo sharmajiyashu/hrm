@@ -26,7 +26,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $query_search = $request->input('search');
-        $employees = Employee::orderBy('employees.id', 'desc')
+        $employees = Employee::orderBy('employees.id', 'desc')->select('employees.*')
             ->when($query_search, function ($query) use ($query_search) {
                 $query->where('employees.gender', 'like', '%' . $query_search . '%')
                 ->orWhere('users.first_name', 'like', '%' . $query_search . '%')

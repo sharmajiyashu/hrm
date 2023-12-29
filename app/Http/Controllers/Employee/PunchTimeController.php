@@ -7,7 +7,9 @@ use App\Models\PunchTime;
 use App\Http\Requests\StorePunchTimeRequest;
 use App\Http\Requests\UpdatePunchTimeRequest;
 use App\Models\Breaktime;
+use App\Models\LeaveRequest;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class PunchTimeController extends Controller
 {
@@ -273,6 +275,69 @@ class PunchTimeController extends Controller
         }{
 
         }
+    }
+
+
+    function attendance(){
+        $december = Carbon::now()->month(12)->startOfMonth();
+        $endDate = Carbon::now()->month(12)->endOfMonth();
+        $alternate_holiday = 0;
+
+        $datesArray = array_map(function ($date) use (&$alternate_holiday) {
+            $content = '';
+            $type = '';
+            $day = date('D', strtotime($date->toDateString()));
+            
+            
+            if ($day == 'Sat') {
+                $alternate_holiday++;
+            }
+
+            $leave = LeaveRequest::whereDate('date',$date->toDateString())->where('status','1')->first();
+            if(!empty($leave)){
+                if($leave->type == '1'){
+                    $type = 'paid_leave';
+                }elseif($leave->type == '2'){
+                    $type = 'paid_casual_leave';
+                }elseif($leave->type == '3'){
+                    $type = 'casual_leave';
+                }
+            }
+
+            if ($alternate_holiday == 2) {
+                $content = "Alternate Holiday";
+                $alternate_holiday = 0; // Reset the counter after marking the second Saturday
+                $type = "holiday";
+            }elseif($day == 'Sun'){
+                $type = "holiday";
+            }
+
+            $currentDate = Carbon::now();
+            $compareDate = Carbon::createFromFormat('Y-m-d', $date->toDateString());
+            if ($compareDate->gt($currentDate)) {
+                
+            } else {
+                $punch_time = PunchTime::whereDate('created_at',$date->toDateString())->first();
+                if(!empty($punch_time)){
+                    $type = "present";
+                }else{
+                    if(empty($type)){
+                        $type = "absent";
+                    }
+                }
+            }
+
+            return [
+                'date' => $date->toDateString(),
+                'day' => $day,
+                'content' => $content,
+                'type' => $type
+            ];
+        }, iterator_to_array(Carbon::create($december)->toPeriod($endDate, '1 day')));
+        // echo "<pre>";
+        // print_r($datesArray);
+        // die;
+        return view('employee.attendance',compact('datesArray'));
     }
 
 }

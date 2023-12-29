@@ -1,7 +1,4 @@
-
-
-
-@extends('admin.layouts.app')
+@extends('employee.layouts.app')
 
 @section('content')
 
@@ -16,11 +13,11 @@
                         <h2 class="content-header-title float-start mb-0">Employee</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
+                                <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.employees.index') }}">Employees</a>
+                                <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">leaves</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">{{ $employee->first_name }} {{ $employee->last_name }}</a>
+                                <li class="breadcrumb-item"><a href="#"></a>
                                 </li>
                                 <li class="breadcrumb-item active"> Account
                                 </li>
@@ -41,115 +38,135 @@
         <div class="content-body">
             <div class="row">
                 <div class="col-12">
-                    @include('admin.employees.accounts.tab-bar')
                     <!-- profile -->
                     <div class="card">
                         <div class="card-header border-bottom">
-                            <h4 class="card-title">Profile Details</h4>
-                        </div>
-                        <div class="card-body py-2 my-25">
-                            <!-- header section -->
-                            <div class="d-flex">
-                                <a href="#" class="me-25">
-                                    <img src="{{ asset('public/admin/app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100" />
-                                </a>
-                                <!-- upload and reset button -->
-                                <div class="d-flex align-items-end mt-75 ms-1">
-                                    <div>
-                                        <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
-                                        <input type="file" id="account-upload" hidden accept="image/*" />
-                                        {{-- <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button> --}}
-                                        {{-- <p class="mb-0">Allowed file types: png, jpg, jpeg.</p> --}}
-                                    </div>
-                                </div>
-                                <!--/ upload and reset button -->
-                            </div>
-                            <!--/ header section -->
-
-                            <!-- form -->
-                            <form class="validate-form mt-2 pt-50">
-                                <div class="row">
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountFirstName">First Name</label>
-                                        <input type="text" class="form-control" id="accountFirstName" name="firstName" placeholder="John" value="{{ $employee->first_name }}" data-msg="Please enter first name" />
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountLastName">Last Name</label>
-                                        <input type="text" class="form-control" id="accountLastName" name="lastName" placeholder="Doe" value="{{ $employee->last_name }}" data-msg="Please enter last name" />
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountEmail">Email</label>
-                                        <input type="email" class="form-control" id="accountEmail" name="email" placeholder="Email" value="{{ $employee->email }}" />
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountOrganization">Mobile</label>
-                                        <input type="text" class="form-control" id="accountOrganization" name="organization" placeholder="Organization name" value="{{ $employee->mobile }}" />
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountPhoneNumber">Date Of Birth</label>
-                                        <input type="text" class="form-control account-number-mask" id="accountPhoneNumber" name="phoneNumber" placeholder="Phone Number" value="{{ $employee->date_of_birth }}" />
-                                    </div>
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountAddress">Date Of Join</label>
-                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $employee->date_of_join }}" />
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="country">State</label>
-                                        <select id="country" class="select2 form-select">
-                                            <option value="">Select Country</option>
-                                            @foreach (config('states') as $state => $item)
-                                                <option value="{{ $state }}" {{ ($employee->state == $state) ? 'selected' : '' }}>{{ $state }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 mb-1">
-                                        <label class="form-label" for="accountAddress">City</label>
-                                        <input type="text" class="form-control" id="accountAddress" name="address" placeholder="Your Address" value="{{ $employee->city }}" />
-                                    </div>
+                            <h3 class="card-title">
+                                Leave Type : 
+                                {{ config('constant.leave_reasones.'.$applyLeave->type) }}
+                            </h3>
+                            <h4>
+                                Status : 
+                                @if ($applyLeave->status == 0)
+                                    <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                @elseif ($applyLeave->status == 1)
+                                    <span class="badge rounded-pill badge-light-success">Approved</span>
+                                @elseif ($applyLeave->status == 3)
+                                    <span class="badge rounded-pill badge-light-danger">Reject</span>
+                                @else
                                     
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary mt-1 me-1">Save changes</button>
-                                        <button type="reset" class="btn btn-outline-secondary mt-1">Discard</button>
+                                @endif
+                            
+                            </h4>
+                        </div>
+                        <div class="card-body " >
+                            
+                            
+                                <div class="row">
+
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        {{-- <h4>
+                                            Leave Type : 
+
+                                            {{ config('constant.leave_reasones.'.$applyLeave->type) }}
+                                        </h4> --}}
+                                        
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        {{-- <h4>
+                                                Status : 
+                                            @if ($applyLeave->status == 0)
+                                                <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                            @elseif ($applyLeave->status == 1)
+                                                <span class="badge rounded-pill badge-light-success">Approved</span>
+                                            @elseif ($applyLeave->status == 3)
+                                                <span class="badge rounded-pill badge-light-danger">Reject</span>
+                                            @else
+                                                
+                                            @endif
+                                        </h4> --}}
+                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <table class="table">
+                                            <thead>
+                                               <tr>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Type</th>
+                                               </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($leave_requests as $item)
+                                                <tr>
+                                                    <td><div class="d-flex align-items-center">
+                                                        <div class="avatar bg-light-primary me-1">
+                                                            <div class="avatar-content">
+                                                                <i data-feather="calendar" class="font-medium-3"></i>
+                                                            </div>
+                                                        </div>
+                                                        <span><strong>{{ $item->date }}</strong></span>
+                                                    </div></td>
+                                                    <td>
+                                                        @if ($item->status == 0)
+                                                            <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                        @elseif ($item->status == 1)
+                                                            <span class="badge rounded-pill badge-light-success">Approved</span>
+                                                        @elseif ($item->status == 3)
+                                                            <span class="badge rounded-pill badge-light-danger">Reject</span>
+                                                        @else
+                                                            
+                                                        @endif
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span id="span_value_{{ $item->id }}">
+                                                            @if ($item->type == 1)
+                                                                P/L
+                                                            
+                                                            @elseif ($item->type == 2)
+                                                                Half : P/L , Half : C/L
+                                                            @elseif ($item->type == 3)
+                                                                CL
+                                                            @else
+                                                                
+                                                            @endif
+                                                        </span>
+                                                    </td>
+                                                </tr>    
+                                                <?php $i++;  ?>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table">
+                                            <tr>
+                                                <th>Paid leave</th>
+                                                <td><span id="paid_leave_span">0</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Casual leave</th>
+                                                <td><span id="casual_leave_span">0</span></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
-                            </form>
-                            <!--/ form -->
+                            
                         </div>
                     </div>
-
-                    <!-- deactivate account  -->
-                    {{-- <div class="card">
-                        <div class="card-header border-bottom">
-                            <h4 class="card-title">Delete Account</h4>
-                        </div>
-                        <div class="card-body py-2 my-25">
-                            <div class="alert alert-warning">
-                                <h4 class="alert-heading">Are you sure you want to delete your account?</h4>
-                                <div class="alert-body fw-normal">
-                                    Once you delete your account, there is no going back. Please be certain.
-                                </div>
-                            </div>
-
-                            <form id="formAccountDeactivation" class="validate-form" onsubmit="return false">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" data-msg="Please confirm you want to delete account" />
-                                    <label class="form-check-label font-small-3" for="accountActivation">
-                                        I confirm my account deactivation
-                                    </label>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-danger deactivate-account mt-1">Deactivate Account</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
-                    <!--/ profile -->
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
 @endsection

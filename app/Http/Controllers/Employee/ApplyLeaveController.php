@@ -87,9 +87,12 @@ class ApplyLeaveController extends Controller
      * @param  \App\Models\ApplyLeave  $applyLeave
      * @return \Illuminate\Http\Response
      */
-    public function show(ApplyLeave $applyLeave)
+    public function show(ApplyLeave $applyLeave,$id)
     {
-        //
+        $paid_leaves = 2.5;
+        $applyLeave = ApplyLeave::find($id);
+        $leave_requests = LeaveRequest::where('apply_lead_id',$id)->get();
+        return view('employee.apply_leaves.show',compact('applyLeave','leave_requests','paid_leaves'));
     }
 
     /**

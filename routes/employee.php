@@ -29,7 +29,8 @@ Route::middleware(['employee'])->group(function () {
     Route::get('break_out',[PunchTimeController::class,'breakOut'])->name('break_out');
     Route::get('punch_out',[PunchTimeController::class,'punchOut'])->name('punch_out');
 
-
+    Route::get('attendance',[PunchTimeController::class,'attendance'])->name('attendance');
+    
     Route::resource('apply_leaves',ApplyLeaveController::class);
 
 });

@@ -30,6 +30,10 @@
                 </ul>
             </li>
 
+            <li class=" nav-item {{ Request::routeIs('employee.attendance') ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('employee.attendance') }}"><i data-feather="calendar"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Attendance</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
+                 
+            </li>
+
             {{-- <li class=" nav-item {{ Request::routeIs('employee.clients.index','employee.clients.create','employee.clients.show','employee.clients.appraisals','employee.clients.loans','employee.clients.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Invoice">Client</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('employee.clients.index','employee.clients.show','employee.clients.appraisals','employee.clients.loans','employee.clients.salaries') ? 'active' : '' }} " href="{{ route('employee.clients.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>

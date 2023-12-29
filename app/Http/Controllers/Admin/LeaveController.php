@@ -127,6 +127,9 @@ class LeaveController extends Controller
         }elseif($request->status == '1'){  
             if(!empty($request->leaves_status)){
                 $leave_status =  json_decode($request->leaves_status);
+                LeaveRequest::where('apply_lead_id',$request->apply_id)->update([
+                    'status' => '3',
+                ]);
                 foreach($leave_status as $key => $val){
                     $leave_request_id = $val[0];
                     $leave_status =  $val[1];
