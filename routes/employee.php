@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Employee\ApplyLeaveController;
 use App\Http\Controllers\Employee\PunchTimeController;
+use App\Http\Controllers\Employee\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,7 @@ Route::middleware(['employee'])->group(function () {
     Route::get('attendance',[PunchTimeController::class,'attendance'])->name('attendance');
     
     Route::resource('apply_leaves',ApplyLeaveController::class);
+    Route::resource('tasks',TaskController::class);
 
 });
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('projects',ProjectController::class);
     Route::resource('invoices',InvoiceController::class);
     Route::resource('leaves',LeaveController::class);
+    Route::resource('tasks',TaskController::class);
 
     Route::group(['as' => 'leaves.','prefix' => 'leaves','controller' => LeaveController::class ],function () {
         Route::post('approved_leaves','approvedLeaves')->name('approved_leaves');

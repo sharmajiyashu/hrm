@@ -50,6 +50,16 @@
                 </ul>
             </li>
 
+            <li class=" nav-item {{ Request::routeIs('admin.tasks.index','admin.tasks.create','admin.tasks.show','admin.tasks.appraisals','admin.tasks.loans','admin.tasks.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="database"></i><span class="menu-title text-truncate" data-i18n="Invoice">Tasks</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.tasks.index','admin.tasks.show','admin.tasks.appraisals','admin.tasks.loans','admin.tasks.salaries') ? 'active' : '' }} " href="{{ route('admin.tasks.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    </li>
+
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.tasks.create') ? 'active' : '' }} " href="{{ route('admin.tasks.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
+                    </li>
+                </ul>
+            </li>
+
             <li class=" nav-item {{ Request::routeIs('admin.loans.index','admin.loans.create','admin.loans.show','admin.loans.appraisals','') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="package"></i><span class="menu-title text-truncate" data-i18n="Invoice">Loan</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.loans.index','admin.loans.show','admin.loans.appraisals') ? 'active' : '' }} " href="{{ route('admin.loans.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
