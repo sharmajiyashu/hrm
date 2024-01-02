@@ -2,24 +2,30 @@
 
 @section('content')
 <style>
+    .date_content .card{
+        text-align: center;
+        padding: 2%;
+        box-shadow: 0 0 10px 1px rgb(160 160 160 / 70%);
+        background: #dedede;
+    }
     .holiday{
-        background: #faaf6f;
+        background: #faaf6f !important;
         color: white;
     }
     .present{
-        background: #8ec68a;
+        background: #8ec68a !important;
         color: white;
     }
     .absent{
-        background: #ea6868;
+        background: #ea6868 !important;
         color: white;
     }
     .paid_leave{
-        background: #b691d3;
+        background: #b691d3 !important;
         color: white;
     }
     .casual_leave{
-        background: #eda3a3;
+        background: #eda3a3 !important;
         color: white;
     }
     .paid_casual_leave{
@@ -28,11 +34,7 @@
         background: linear-gradient(to bottom right, #b691d3 50%, #eda3a3 50%);
         color: white;
     }
-    .date_content .card{
-        text-align: center;
-        padding: 2%;
-        box-shadow: 0 0 10px 1px rgb(160 160 160 / 70%);
-    }
+    
 </style>
 <div class="app-content content ">
     <div class="content-overlay"></div>

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['admin'])->group(function () {
 
     Route::get('/',[HomeController::class,'dashboard'])->name('dashboard');
+    Route::get('time-sheet',[HomeController::class,'timeSheet'])->name('time_sheet');
 
     
     Route::resource('employees',EmployeeController::class);
