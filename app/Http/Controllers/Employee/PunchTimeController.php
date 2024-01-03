@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Employee;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\PunchTime;
 use App\Http\Requests\StorePunchTimeRequest;
@@ -279,10 +280,10 @@ class PunchTimeController extends Controller
 
 
     function attendance(){
-        $december = Carbon::now()->month(12)->startOfMonth();
-        $endDate = Carbon::now()->month(12)->endOfMonth();
+        $month = date('m');
+        $december = Carbon::now()->month($month)->startOfMonth();
+        $endDate = Carbon::now()->month($month)->endOfMonth();
         $alternate_holiday = 0;
-
         $datesArray = array_map(function ($date) use (&$alternate_holiday) {
             $content = '';
             $type = '';
@@ -320,6 +321,15 @@ class PunchTimeController extends Controller
                 $punch_time = PunchTime::whereDate('created_at',$date->toDateString())->first();
                 if(!empty($punch_time)){
                     $type = "present";
+                    $get_time = Helper::getEmployeeWH(auth()->user()->id,$date->toDateString());
+                    if($get_time['second'] < 3600){
+                        $type = "half_present";
+                    }
+
+                    if(date('H',strtotime($punch_time->punch_in)) < 11){
+                        $type = "half_present";
+                    }
+                    
                 }else{
                     if(empty($type)){
                         $type = "absent";

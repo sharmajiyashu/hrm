@@ -94,13 +94,11 @@
                  
             </li>
 
-            <li class=" nav-item {{ Request::routeIs() ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="settings"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.settings.change_password') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="settings"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting </span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Employee <br> Management</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.settings.change_password') ? 'active' : '' }} " href="{{ route('admin.settings.change_password') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Change Password</span></a>
                     </li>
-
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employee.create') ? 'active' : '' }} " href="{{ route('admin.employees.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Staff Attendence</span></a>
-                    </li>
+                    
                 </ul>
             </li>
 

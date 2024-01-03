@@ -29,6 +29,7 @@ class ApplyLeaveController extends Controller
                 ->orWhere('users.last_name', 'like', '%' . $query_search . '%')
                 ->orWhere('apply_leaves.category', 'like', '%' . $query_search . '%');
             })
+            ->where('users.id',auth()->user()->id)
             ->join('users', 'apply_leaves.user_id', '=', 'users.id') // Join with the 'users' table
             ->paginate(10);
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Employee\ApplyLeaveController;
 use App\Http\Controllers\Employee\PunchTimeController;
+use App\Http\Controllers\Employee\SettingController;
 use App\Http\Controllers\Employee\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['employee'])->group(function () {
 
-    Route::get('/',function(){
+    Route::get('dashboard',function(){
         return view('employee.dashboard');
     })->name('dashboard');
+
+    Route::group(['as' => 'settings.','prefix' => 'settings','controller' => SettingController::class ],function () {
+        Route::get('change-password','changePassword')->name('change_password');
+        Route::post('update_password','updatePassword')->name('update_password');
+    });
 
     Route::get('get_punch_time',[PunchTimeController::class,'pubchTime'])->name('get_punch_time');
     Route::get('punch_in',[PunchTimeController::class,'punchIn'])->name('punch_in');

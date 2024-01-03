@@ -25,14 +25,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Client</h2>
+                            <h2 class="content-header-title float-start mb-0">Apply Leave</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">apply_leaves</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">Leaves</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Create
+                                    <li class="breadcrumb-item active">Apply
                                     </li>
                                 </ol>
                             </div>

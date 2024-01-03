@@ -28,10 +28,10 @@ class TaskController extends Controller
                 ->orWhere('users.last_name', 'like', '%' . $query_search . '%')
                 ->orWhere('projects.category', 'like', '%' . $query_search . '%');
             })
+            ->where('users.id',auth()->user()->id)
             ->join('users', 'tasks.user_id', '=', 'users.id') // Join with the 'users' table
             ->join('projects', 'tasks.project_id', '=', 'projects.id') // Join with the 'users' table
             ->paginate(10);
-
         if ($request->ajax()) {
             return view('employee.tasks.pagination', compact('tasks'))->render();
         }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(function () {
 
-    Route::get('/',[HomeController::class,'dashboard'])->name('dashboard');
+    Route::get('dashboard',[HomeController::class,'dashboard'])->name('dashboard');
     Route::get('time-sheet',[HomeController::class,'timeSheet'])->name('time_sheet');
 
     
@@ -54,6 +55,10 @@ Route::middleware(['admin'])->group(function () {
         Route::post('apprisal_save', 'apprisalSave')->name('apprisal_save');
     });
 
+    Route::group(['as' => 'settings.','prefix' => 'settings','controller' => SettingController::class ],function () {
+        Route::get('change-password','changePassword')->name('change_password');
+        Route::post('update_password','updatePassword')->name('update_password');
+    });
 
 });
 

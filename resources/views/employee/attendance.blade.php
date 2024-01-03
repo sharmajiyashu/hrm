@@ -31,7 +31,13 @@
     .paid_casual_leave{
         /* background: #eda3a3; */
         /* background: linear-gradient(to right, #b691d3 50%, #eda3a3 50%); */
-        background: linear-gradient(to bottom right, #b691d3 50%, #eda3a3 50%);
+        background: linear-gradient(to bottom right, #b691d3 50%, #eda3a3 50%) !important;
+        color: white;
+    }
+    .half_present{
+        /* background: #eda3a3; */
+        /* background: linear-gradient(to right, #b691d3 50%, #eda3a3 50%); */
+        background: linear-gradient(to bottom right, #ea6868 50%, #8ec68a 50%) !important;
         color: white;
     }
     

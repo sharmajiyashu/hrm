@@ -24,12 +24,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Project</h2>
+                            <h2 class="content-header-title float-start mb-0">Leaves Applies</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{  route('employee.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">apply_leaves</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('employee.apply_leaves.index') }}">Leaves</a>
                                     </li>
                                     <li class="breadcrumb-item active">List
                                     </li>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-3" style="text-align: end">
-                    <a href="{{ route('employee.apply_leaves.create') }}" class=" btn btn-primary btn-gradient round  ">Create</a>
+                    <a href="{{ route('employee.apply_leaves.create') }}" class=" btn btn-primary btn-gradient round  ">Apply</a>
                 </div>
             </div>
             <div class="content-body">
@@ -63,11 +63,11 @@
                     <div class="col-12">
                         <div class="card card-company-table">
                             <div class="card-header">
-                                <h4 class="card-title">Responsive tables</h4>
+                                {{-- <h4 class="card-title">Responsive tables</h4> --}}
                                 {{-- <div class="col-md-3" style="text-align: end">
                                     <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                 </div> --}}
-                                <h4>Available P/L : 20</h4>
+                                {{-- <h4>Available P/L : 20</h4> --}}
                             </div>
                             <div class="table-responsive" id="table-responsive">
                                 <table class="table mb-0">
