@@ -99,7 +99,9 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td >{{ $item->description }}</td>
+                                                <td >
+                                                    {!! substr(strip_tags($item->description), 0, 50) !!}
+                                                </td>
                                                 <td >
                                                     <div class="d-flex align-items-center">
                                                         <div class="avatar bg-light-primary me-1">
@@ -114,6 +116,12 @@
                                                 <td>
                                                     @if ($item->status == 0)
                                                         <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                    @elseif ($item->status == 2)
+                                                        <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                                                    @elseif ($item->status == 1)
+                                                        <span class="badge rounded-pill badge-light-success">Complete</span>
+                                                    @elseif ($item->status == 3)
+                                                        <span class="badge rounded-pill badge-light-danger">On-Hold</span>
                                                     @else
                                                         
                                                     @endif

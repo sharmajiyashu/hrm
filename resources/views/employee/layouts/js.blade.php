@@ -112,14 +112,7 @@
    </script>
 
 
-<script>
 
-
-
-    $(document).ready(function () {
-        getPunchTimer();
-    });
-</script>
 
 
 {{-- punch time function --}}
@@ -269,4 +262,124 @@
     }
 
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        getPunchTimer();
+        getInprocessingtask();
+    });
+</script>
+
+
+<script>
+    function getInprocessingtask(){
+        $.ajax({
+                url: "{{ route('employee.get_in_processing_task') }}",
+                type: 'GET',
+                dataType: 'json', // Specify the expected data type
+                success: function (data) {
+                    if (data.length != 0) {
+
+                        let task_id = data.id;
+
+                        var on_hold_url = `{{ route('employee.tasks.change_status', ['id' => 'task_id', 'status' => 3]) }}`;
+                        on_hold_url = on_hold_url.replace('task_id',task_id);
+
+                        var complete_url = `{{ route('employee.tasks.change_status', ['id' => 'task_id', 'status' => 1]) }}`;
+                        complete_url = complete_url.replace('task_id',task_id);
+                        console.log(data);
+                        document.getElementById("task_timer_detail").innerHTML = `
+                            <div class="offcanvas-header">
+                                <h5 id="offcanvasBottomLabel" class="offcanvas-title task_timer">Task : ${data.name}</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="row">
+                                    <div class="col-md-8 mb-1 card py-2 my-25" style="border: solid 1px ">
+                                        <h3>Description</h3>
+                                        <div>${data.description}</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-1" >
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Task Name</th>
+                                                        <td> ${data.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Expected Time</th>
+                                                        <td>${data.expected_time}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Working Time</th>
+                                                        <td ><span class="task_timer">-</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <td ><span class="">${data.date}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="mb-1">
+                                            <a href="${on_hold_url}" onclick="return confirm('Are you sure you want to on-hold task : ${data.name}?')" class="btn btn-danger">On Hold</a>
+                                            <a href="${complete_url}" onclick="return confirm('Are you sure you want to complete task : ${data.name}?')" class="btn btn-success">Complete</a>
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        `;
+                        startTaskTimer(data.task_time_secound);
+                    }else{
+                        document.getElementById("task_timer_detail").innerHTML  = `   <div class="offcanvas-header">
+                                <h5 id="offcanvasBottomLabel" class="offcanvas-title ">No Active Task</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <h5>No active task. Please go to the task sheet and start a task to initiate the task timer.</h5>
+                                <p>
+                                    
+                                </p>
+                                <a href="{{ route('employee.tasks.index') }}" class="btn btn-primary">Task Sheet</a>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                            </div>
+                            `  ; 
+                    }
+                    
+
+                },
+                
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+    }
+
+
+    function startTaskTimer(second) {
+        let seconds = second;
+        // Update the timer every second
+        timerInterval = setInterval(function () {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+
+            // Display the timer in the specified format
+            const displayText = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+
+            const timerElements = document.querySelectorAll('.task_timer');
+            timerElements.forEach(function (timerElement) {
+                timerElement.textContent = displayText;
+            });
+
+            // Increment the time
+            seconds++;
+        }, 1000);
+    }
 </script>

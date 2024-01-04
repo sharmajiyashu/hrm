@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Breaktime;
 use App\Models\PunchTime;
+use App\Models\TaskTime;
 use Carbon\Carbon;
 
 class Helper
@@ -77,5 +78,27 @@ class Helper
             $return_data['message'] = 'Punch Out';
         }
         return $return_data;
+    }
+
+
+
+    public static function getTaskTime($task_id){
+        $total_deff_seconds = 0;
+        TaskTime::where('task_id',$task_id)->get()->map(function($task_time) use(&$total_deff_seconds){
+            if(!empty($task_time->start_time)){
+                $break_start = Carbon::parse($task_time->start_time);
+            }else{
+                $break_start = Carbon::now();
+            }
+            if(!empty($task_time->end_time)){
+                $break_end = Carbon::parse($task_time->end_time);
+            }else{
+                $break_end = Carbon::now();
+            }
+            $timeBreakDifferenceInSeconds = $break_end->diffInSeconds($break_start);
+            $total_deff_seconds += $timeBreakDifferenceInSeconds;
+        });
+        $timeFormatted = gmdate('H:i:s', $total_deff_seconds);
+        return [$timeFormatted , $total_deff_seconds];
     }
 }

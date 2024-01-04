@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Employee;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\TaskTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -67,7 +70,10 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $get_timer = Helper::getTaskTime($task->id);
+        $task->task_time = isset($get_timer[0]) ? $get_timer[0] :'';
+        $task->task_time_second = isset($get_timer[1]) ? $get_timer[1] :'';
+        return view('employee.tasks.show',compact('task'));
     }
 
     /**
@@ -103,4 +109,45 @@ class TaskController extends Controller
     {
         //
     }
+
+
+    function updateStatus(Request $request){
+        if($request->status == Task::$in_processing){
+            Task::where('user_id',auth()->user()->id)->where('status',Task::$in_processing)->update(['status' => Task::$on_hold]);
+            Task::where('id',$request->id)->where('user_id',auth()->user()->id)->update(['status' => Task::$in_processing]);
+            TaskTime::create([
+                'task_id' => $request->id,
+                'start_time' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->back()->with('success','Task start successfully');
+        }elseif($request->status == Task::$complete){
+            Task::where('id',$request->id)->where('user_id',auth()->user()->id)->update(['status' => Task::$complete]);            
+            $task_time = TaskTime::where('task_id',$request->id)->orderBy('id','DESC')->first();
+            $task_time->update([
+                'end_time' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->back()->with('success','Task complete successfully');
+        }elseif($request->status == Task::$on_hold){
+            Task::where('id',$request->id)->where('user_id',auth()->user()->id)->update(['status' => Task::$on_hold]);            
+            $task_time = TaskTime::where('task_id',$request->id)->orderBy('id','DESC')->first();
+            $task_time->update([
+                'end_time' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect()->back()->with('success','Task on-hold');
+        }
+    }
+
+
+    function getInProcessingTask(){
+        $task = Task::where('user_id',auth()->user()->id)->where('status',Task::$in_processing)->orderBy('id','Desc')->first();
+        if(!empty($task)){
+            $task_time = Helper::getTaskTime($task->id);
+            $task->task_time = $task_time[0];
+            $task->task_time_secound = $task_time[1];
+            return json_encode($task);
+        }
+        return json_encode([]);
+    }
+
+
 }

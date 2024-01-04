@@ -63,6 +63,27 @@
             border-bottom-width: 1px;
             box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
         }
+
+        .task-timer-button{
+            display: inline-block !important;position: fixed;
+            bottom: 2%;
+            right: 30px;
+            z-index: 99;
+        }
+
+        .task-timer-button .ficon{
+            height: 2rem !important;
+            width: 2rem !important;
+        }
+
+
+    table {
+        width: 100%
+    }
+    table th{
+        padding: 0.5rem
+    }
+
     </style>
 </head>
 <!-- END: Head-->
@@ -83,7 +104,35 @@
     <footer class="footer footer-static footer-light">
         {{-- <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p> --}}
     </footer>
-    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+
+
+    
+
+    <div class="btn-icon task-timer-button">
+        <a class=" " href="#" data-bs-toggle="offcanvas" data-bs-target="#task_timer_detail" aria-controls="offcanvasBottom">
+            <i class="ficon" data-feather="clock"></i>
+            <span class="badge rounded-pill bg-dark badge-up cart-item-count task_timer">0</span>
+        </a>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="task_timer_detail" aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasBottomLabel" class="offcanvas-title punch_time">Dome</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <h5>Test Data</h5>
+            <p>
+                Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or
+                web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought
+                to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.
+            </p>
+            <button type="button" class="btn btn-primary me-1">Continue</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+        </div>
+    </div>
+    
+    
     <!-- END: Footer-->
 
     @include('employee.layouts.js')

@@ -30,11 +30,17 @@ Route::middleware(['employee'])->group(function () {
         Route::post('update_password','updatePassword')->name('update_password');
     });
 
+    Route::group(['as' => 'tasks.','prefix' => 'tasks','controller' => TaskController::class ],function () {
+        Route::get('update_task_status','updateStatus')->name('change_status');
+    });
+
     Route::get('get_punch_time',[PunchTimeController::class,'pubchTime'])->name('get_punch_time');
     Route::get('punch_in',[PunchTimeController::class,'punchIn'])->name('punch_in');
     Route::get('break_in',[PunchTimeController::class,'breakIn'])->name('break_in');
     Route::get('break_out',[PunchTimeController::class,'breakOut'])->name('break_out');
     Route::get('punch_out',[PunchTimeController::class,'punchOut'])->name('punch_out');
+
+    Route::get('get_in_processing_task',[TaskController::class,'getInProcessingTask'])->name('get_in_processing_task');
 
     Route::get('attendance',[PunchTimeController::class,'attendance'])->name('attendance');
     

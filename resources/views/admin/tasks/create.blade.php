@@ -132,7 +132,7 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Description<span class="error"></span></label>
-                                                    <textarea name="description" class="form-control" id="" cols="4" rows="4" placeholder="Project Description">{{ old('description') }}</textarea>
+                                                    <textarea name="description" class="form-control" id="description" cols="4" rows="4" placeholder="Project Description">{{ old('description') }}</textarea>
                                                     @error('description')<span class="error">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -155,5 +155,14 @@
         </div>
     </div>
     <!-- END: Content-->
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     
 @endsection
