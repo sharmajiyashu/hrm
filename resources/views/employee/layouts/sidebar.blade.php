@@ -20,7 +20,7 @@
                  
             </li>
             
-            <li class=" nav-item {{ Request::routeIs('employee.apply_leaves.index','employee.apply_leaves.create','employee.apply_leaves.show','employee.apply_leaves.appraisals','employee.apply_leaves.loans','employee.apply_leaves.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Invoice">Leave</span></a>
+            <li class=" nav-item {{ Request::routeIs('employee.apply_leaves.index','employee.apply_leaves.create','employee.apply_leaves.show','employee.apply_leaves.appraisals','employee.apply_leaves.loans','employee.apply_leaves.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="cloud-off"></i><span class="menu-title text-truncate" data-i18n="Invoice">Leave</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('employee.apply_leaves.index','employee.apply_leaves.show','employee.apply_leaves.appraisals','employee.apply_leaves.loans','employee.apply_leaves.salaries') ? 'active' : '' }} " href="{{ route('employee.apply_leaves.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
@@ -34,8 +34,16 @@
                  
             </li>
             
-            <li class=" nav-item {{ Request::routeIs('employee.tasks.index') ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('employee.tasks.index') }}"><i data-feather="calendar"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Task Sheet</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
+            {{-- <li class=" nav-item {{ Request::routeIs('employee.tasks.index') ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('employee.tasks.index') }}"><i data-feather="calendar"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Task Sheet</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
                  
+            </li> --}}
+
+            <li class=" nav-item {{ Request::routeIs('employee.tasks.index') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="layers"></i><span class="menu-title text-truncate" data-i18n="Invoice">Task </span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.index') ? 'active' : '' }} " href="{{ route('employee.tasks.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Task Sheet</span></a>
+                    </li>
+                    
+                </ul>
             </li>
 
 

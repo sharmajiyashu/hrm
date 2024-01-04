@@ -1,100 +1,109 @@
 
 <div class="table-responsive">
-<table class="table mb-0">
-    <thead class="table-dark">
-        <tr>
-            <th scope="col" >#</th>
-            <th scope="col" >Name</th>
-            <th scope="col" >Start Date</th>
-            <th scope="col" >End Date</th>
-            <th scope="col" >Category</th>
-            <th scope="col" >Client</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php  $i = ($projects->currentPage() - 1) * $projects->perPage() + 1; @endphp
-        @foreach ($projects as $item)
+    <table class="table mb-0">
+        <thead class="table-dark">
             <tr>
-                <td >{{ $i }}</td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <div class="avatar rounded">
-                            <div class="avatar-content">
-                                <img src="{{ asset('public/admin/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
-                            </div>
-                        </div>
-                        <div>
-                            <div class="fw-bolder"><a href="{{ route('admin.projects.show',$item->id) }}">{{ $item->name }}</a></div>
-                            <div class="font-small-2 text-muted">{{ $item->email }}</div>
-                        </div>
-                    </div>
-                </td>
-                <td >{{ $item->start_date }}</td>
-                <td >{{ $item->end_date }}</td>
-                <td >
-                    <div class="d-flex align-items-center">
-                        <div class="avatar bg-light-primary me-1">
-                            <div class="avatar-content">
-                                <i data-feather="monitor" class="font-medium-3"></i>
-                            </div>
-                        </div>
-                        <span><strong>{{ $item->category }}</strong></span>
-                    </div>
-                </td>
-                <td >{{ $item->client_first_name }} {{ $item->client_last_name }}</td>
-                <td>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
-                            <i data-feather="more-vertical"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="{{route('admin.projects.edit',$item->id)}}">
-                                <i data-feather="edit-2" class="me-50"></i>
-                                <span>Edit</span>
-                            </a>
-                            <a class="dropdown-item" href="{{route('admin.projects.show',$item->id)}}">
-                                <i data-feather="eye" class="me-50"></i>
-                                <span>View</span>
-                            </a>
-                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#danger_ke{{ $item->id }}">
-                                <i data-feather="trash" class="me-50"></i>
-                                <span>Delete</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="modal fade modal-danger text-start" id="danger_ke{{ $item->id }}" tabindex="-1" aria-labelledby="myModalLabel120" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel120">Delete</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete !
-                                    </div>
-                                    <form action="{{route('admin.projects.destroy',$item->id)}}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger" @if ($item->is_default == 1) @disabled(true) @endif>Delete</button>
-                                        </div>
-                                    </form>
-                                </div>
-                        </div>
-                    </div>
-                </td>
+                <th scope="col" >#</th>
+                <th scope="col" >Name</th>
+                <th scope="col" >Description</th>
+                <th scope="col" >Project</th>
+                <th scope="col" >Date</th>
+                <th scope="col" >Expected Time</th>
+                <th>Working Time</th>
+                <th scope="col" >Status</th>
+                <th scope="col" >QA Status</th>
+                {{-- <th>Action</th> --}}
             </tr>
-            @php
-                $i++;
-            @endphp
-        @endforeach
-        
-    </tbody>
-</table>
-@include('admin._pagination', ['data' => $projects])
+        </thead>
+        <tbody>
+            @php  $i = ($tasks->currentPage() - 1) * $tasks->perPage() + 1; @endphp
+            @foreach ($tasks as $item)
+                <tr>
+                    <td >{{ $i }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar rounded">
+                                <div class="avatar-content">
+                                    <img src="{{ asset('public/admin/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
+                                </div>
+                            </div>
+                            <div>
+                                <div class="fw-bolder"><a href="{{ route('employee.tasks.show',$item->id) }}">{{ $item->name }}</a></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td >
+                        {!! substr(strip_tags($item->description), 0, 30) !!}
+                    </td>
+                    <td>
+                        <span><strong>{{ $item->project_name }}</strong></span>
+                    </td>
+                    <td >{{ $item->date }}</td>
+                    <td >{{ $item->expected_time }}</td>
+                    <td >
+                        @if ($item->status == 2)
+                        <span id="task_time_index_view_{{ $item->id }}" class="text-success">{{ $item->task_time }}</span>
+                            <script>
+                                startTaskTimer({{$item->task_time_second }});
+                                function startTaskTimer(second) {
+                                    let taskSeconds = second;
+                                    // Update the timer every second
+                                    timerIntervalTaskTimer = setInterval(function () {
+                                        const hours = Math.floor(taskSeconds / 3600);
+                                        const minutes = Math.floor((taskSeconds % 3600) / 60);
+                                        const remainingtaskSeconds = taskSeconds % 60;
+
+                                        // Display the timer in the specified format
+                                        const displayText = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingtaskSeconds < 10 ? '0' : ''}${remainingtaskSeconds}`;
+
+                                        // const timerElements = document.querySelectorAll('.task_timer_in_show');
+
+                                        document.getElementById("task_time_index_view_{{ $item->id }}").textContent = displayText;
+                                        // Increment the time
+                                        taskSeconds++;
+                                    }, 1000);
+                                }
+                            </script>
+                        @else
+                            <span class="text-primary">{{ $item->task_time }}</span>
+                        @endif
+                    
+                    </td>
+                    <td>
+                        @if ($item->status == 0)
+                            <span class="badge rounded-pill badge-light-primary">Pending</span>
+                        @elseif ($item->status == 2)
+                            <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                        @elseif ($item->status == 1)
+                            <span class="badge rounded-pill badge-light-success">Complete</span>
+                        @elseif ($item->status == 3)
+                            <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                        @else
+                            
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->qa_status == 0)
+                            <span class="badge rounded-pill badge-light-primary">Pending</span>
+                        @elseif ($item->qa_status == 2)
+                            <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                        @elseif ($item->qa_status == 1)
+                            <span class="badge rounded-pill badge-light-success">Complete</span>
+                        @elseif ($item->qa_status == 3)
+                            <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                        @else
+                            
+                        @endif
+                    </td>
+                </tr>
+                @php
+                    $i++;
+                @endphp
+            @endforeach
+            
+        </tbody>
+    </table>
+    @include('employee._pagination', ['data' => $tasks])
 </div>
            
            

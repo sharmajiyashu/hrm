@@ -5378,7 +5378,7 @@ fieldset:disabled .btn {
 .offcanvas-bottom {
   right: 0;
   left: 0;
-  height: 30vh;
+  height: 60vh;
   max-height: 100%;
   border-top: 0 solid rgba(34, 41, 47, 0.2);
   transform: translateY(100%); }

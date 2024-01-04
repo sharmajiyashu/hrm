@@ -58,143 +58,193 @@
 
                 <!-- Ajax Sourced Server-side -->
                 <section id="ajax-datatable">
-                     <!-- Responsive tables start -->
-                <div class="row" >
-                    <div class="col-12">
-                        <div class="card card-company-table">
-                            <div class="card-header">
-                                <h4 class="card-title">Responsive tables</h4>
-                                <div class="col-md-3" style="text-align: end">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
+
+                    <div class="row" >
+                        <div class="col-12">
+                            <div class="card ">
+                                
+                                <div class="card-body">
+
+                                        <div class="row">
+
+                                            <div class="col-md-2 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Date<span class="error"></span></label>
+                                                    <input type="date" id="select_date" name="name" class="form-control" placeholder="Task Name"   value="{{ old('name') }}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Status<span class="error"></span></label>
+                                                    <select name="status[]" id="select_status" class="select2 form-select" multiple>
+                                                        <option value="0">Pending</option>
+                                                        <option value="2">In-Processing</option>
+                                                        <option value="3">On-Hold</option>
+                                                        <option value="1">Complete</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">QA Status<span class="error"></span></label>
+                                                    <select name="qa_status" id="select_qa_status" class="select2 form-select" multiple  aria-placeholder="Select ">
+                                                        <option value="0">Pending</option>
+                                                        <option value="1">Complete</option>
+                                                        <option value="2">Re-Opened</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Project<span class="error"></span></label>
+                                                    <select name="name[]" id="select_product" class="select2 form-select" multiple>
+                                                        @foreach ($projects as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" >
+                                                <label for="">Search</label>
+                                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                                            </div>
+
+
+                                        </div>
+                                    
                                 </div>
                             </div>
-                            <div class="table-responsive" id="table-responsive">
-                                <table class="table mb-0">
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th scope="col" >#</th>
-                                            <th scope="col" >Name</th>
-                                            <th scope="col" >Description</th>
-                                            <th scope="col" >Project</th>
-                                            <th scope="col" >Expected Time</th>
-                                            <th scope="col" >Status</th>
-                                            {{-- <th>Action</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php  $i = ($tasks->currentPage() - 1) * $tasks->perPage() + 1; @endphp
-                                        @foreach ($tasks as $item)
-                                            <tr>
-                                                <td >{{ $i }}</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar rounded">
-                                                            <div class="avatar-content">
-                                                                <img src="{{ asset('public/employee/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div class="fw-bolder"><a href="{{ route('employee.tasks.show',$item->id) }}">{{ $item->name }}</a></div>
-                                                            <div class="font-small-2 text-muted">{{ $item->email }}</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td >
-                                                    {!! substr(strip_tags($item->description), 0, 50) !!}
-                                                </td>
-                                                <td >
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar bg-light-primary me-1">
-                                                            <div class="avatar-content">
-                                                                <i data-feather="monitor" class="font-medium-3"></i>
-                                                            </div>
-                                                        </div>
-                                                        <span><strong>{{ $item->project_name }}</strong></span>
-                                                    </div>
-                                                </td>
-                                                <td >{{ $item->expected_time }}</td>
-                                                <td>
-                                                    @if ($item->status == 0)
-                                                        <span class="badge rounded-pill badge-light-primary">Pending</span>
-                                                    @elseif ($item->status == 2)
-                                                        <span class="badge rounded-pill badge-light-dark">In Processing</span>
-                                                    @elseif ($item->status == 1)
-                                                        <span class="badge rounded-pill badge-light-success">Complete</span>
-                                                    @elseif ($item->status == 3)
-                                                        <span class="badge rounded-pill badge-light-danger">On-Hold</span>
-                                                    @else
-                                                        
-                                                    @endif
-                                                </td>
-                                                {{-- <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
-                                                            <i data-feather="more-vertical"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="{{route('employee.tasks.edit',$item->id)}}">
-                                                                <i data-feather="edit-2" class="me-50"></i>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                            <a class="dropdown-item" href="{{route('employee.tasks.show',$item->id)}}">
-                                                                <i data-feather="eye" class="me-50"></i>
-                                                                <span>View</span>
-                                                            </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#danger_ke{{ $item->id }}">
-                                                                <i data-feather="trash" class="me-50"></i>
-                                                                <span>Delete</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal fade modal-danger text-start" id="danger_ke{{ $item->id }}" tabindex="-1" aria-labelledby="myModalLabel120" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="myModalLabel120">Delete</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Are you sure you want to delete !
-                                                                    </div>
-                                                                    <form action="{{route('employee.tasks.destroy',$item->id)}}" method="POST">
-                                                                        @csrf
-                                                                        @method('delete')
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-danger" @if ($item->is_default == 1) @disabled(true) @endif>Delete</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </td> --}}
-                                            </tr>
-                                            @php
-                                                $i++;
-                                            @endphp
-                                        @endforeach
-                                        
-                                    </tbody>
-                                </table>
-                                @include('employee._pagination', ['data' => $tasks])
-                            </div>
-                            
-                            {{-- <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <!-- ... (your table structure) ... -->
-                                </table>
-                                {{ $tasks->links('employee._pagination') }}
-                            </div> --}}
                         </div>
                     </div>
-                </div>
-                <!-- Responsive tables end -->
-                </section>
 
-                <!--/ Ajax Sourced Server-side -->
+                    
+                     <!-- Responsive tables start -->
+                    <div class="row" >
+                        <div class="col-12">
+                            <div class="card card-company-table">
+                                {{-- <div class="card-header">
+                                    <h2></h2>
+                                    <div class="col-md-3" style="text-align: end">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                                    </div>
+                                </div> --}}
+                                <div class="table-responsive" id="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col" >#</th>
+                                                <th scope="col" >Name</th>
+                                                <th scope="col" >Description</th>
+                                                <th scope="col" >Project</th>
+                                                <th scope="col" >Date</th>
+                                                <th scope="col" >Expected Time</th>
+                                                <th>Working Time</th>
+                                                <th scope="col" >Status</th>
+                                                <th scope="col" >QA Status</th>
+                                                {{-- <th>Action</th> --}}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php  $i = ($tasks->currentPage() - 1) * $tasks->perPage() + 1; @endphp
+                                            @foreach ($tasks as $item)
+                                                <tr>
+                                                    <td >{{ $i }}</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar rounded">
+                                                                <div class="avatar-content">
+                                                                    <img src="{{ asset('public/admin/app-assets/images/icons/toolbox.svg')}}" alt="Toolbar svg" />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="fw-bolder"><a href="{{ route('employee.tasks.show',$item->id) }}">{{ $item->name }}</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td >
+                                                        {!! substr(strip_tags($item->description), 0, 30) !!}
+                                                    </td>
+                                                    <td>
+                                                        <span><strong>{{ $item->project_name }}</strong></span>
+                                                    </td>
+                                                    <td >{{ $item->date }}</td>
+                                                    <td >{{ $item->expected_time }}</td>
+                                                    <td >
+                                                        @if ($item->status == 2)
+                                                        <span id="task_time_index_view_{{ $item->id }}" class="text-success">{{ $item->task_time }}</span>
+                                                            <script>
+                                                                startTaskTimer({{$item->task_time_second }});
+                                                                function startTaskTimer(second) {
+                                                                    let taskSeconds = second;
+                                                                    // Update the timer every second
+                                                                    timerIntervalTaskTimer = setInterval(function () {
+                                                                        const hours = Math.floor(taskSeconds / 3600);
+                                                                        const minutes = Math.floor((taskSeconds % 3600) / 60);
+                                                                        const remainingtaskSeconds = taskSeconds % 60;
+
+                                                                        // Display the timer in the specified format
+                                                                        const displayText = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingtaskSeconds < 10 ? '0' : ''}${remainingtaskSeconds}`;
+
+                                                                        // const timerElements = document.querySelectorAll('.task_timer_in_show');
+
+                                                                        document.getElementById("task_time_index_view_{{ $item->id }}").textContent = displayText;
+                                                                        // Increment the time
+                                                                        taskSeconds++;
+                                                                    }, 1000);
+                                                                }
+                                                            </script>
+                                                        @else
+                                                            <span class="text-primary">{{ $item->task_time }}</span>
+                                                        @endif
+                                                    
+                                                    </td>
+                                                    <td>
+                                                        @if ($item->status == 0)
+                                                            <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                        @elseif ($item->status == 2)
+                                                            <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                                                        @elseif ($item->status == 1)
+                                                            <span class="badge rounded-pill badge-light-success">Complete</span>
+                                                        @elseif ($item->status == 3)
+                                                            <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                                                        @else
+                                                            
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($item->qa_status == 0)
+                                                            <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                        @elseif ($item->qa_status == 2)
+                                                            <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                                                        @elseif ($item->qa_status == 1)
+                                                            <span class="badge rounded-pill badge-light-success">Complete</span>
+                                                        @elseif ($item->qa_status == 3)
+                                                            <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                                                        @else
+                                                            
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @endforeach
+                                            
+                                        </tbody>
+                                    </table>
+                                    @include('employee._pagination', ['data' => $tasks])
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
                 
-                
+                </section>
 
             </div>
         </div>
@@ -209,11 +259,40 @@
             fetch_data($(this).val());
         });
 
+        $('#select_date, #select_product ,#select_status , #select_qa_status').on('input', function () {
+            let search = document.getElementById("searchInput").value;
+            fetch_data(search);
+        });
+
+
         function fetch_data(query = '') {
+
+            var select_products = [];
+            var selectedProducts = $('#select_product').find(':selected').map(function () {
+                select_products.push(this.value);
+            }).get();
+            select_products = JSON.stringify(select_products);
+
+            var select_task_status = [];
+            var selectedtask_status = $('#select_status').find(':selected').map(function () {
+                select_task_status.push(this.value);
+            }).get();
+            select_task_status = JSON.stringify(select_task_status);
+
+            var select_task_qa_status = [];
+            var selectedtask_status = $('#select_qa_status').find(':selected').map(function () {
+                select_task_qa_status.push(this.value);
+            }).get();
+            select_task_qa_status = JSON.stringify(select_task_qa_status);
+
+
+
+            var date = document.getElementById("select_date").value;
+            
             $.ajax({
                 url: "{{ route('employee.tasks.index') }}",
                 method: 'GET',
-                data: {search: query},
+                data: {search: query,product:select_products , date:date ,status:select_task_status,qa_status:select_task_qa_status},
                 dataType: 'html',
                 success: function (data) {
                     $('#table-responsive').html(data);
