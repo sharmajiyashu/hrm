@@ -32,6 +32,7 @@ Route::middleware(['employee'])->group(function () {
 
     Route::group(['as' => 'tasks.','prefix' => 'tasks','controller' => TaskController::class ],function () {
         Route::get('update_task_status','updateStatus')->name('change_status');
+        Route::get('lists','lists')->name('lists');
     });
 
     Route::get('get_punch_time',[PunchTimeController::class,'pubchTime'])->name('get_punch_time');

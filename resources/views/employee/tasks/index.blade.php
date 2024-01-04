@@ -81,6 +81,7 @@
                                                         <option value="0">Pending</option>
                                                         <option value="2">In-Processing</option>
                                                         <option value="3">On-Hold</option>
+                                                        <option value="4">For-Review</option>
                                                         <option value="1">Complete</option>
                                                     </select>
                                                 </div>
@@ -211,6 +212,8 @@
                                                             <span class="badge rounded-pill badge-light-success">Complete</span>
                                                         @elseif ($item->status == 3)
                                                             <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                                                        @elseif ($item->status == 4)
+                                                            <span class="badge rounded-pill badge-light-warning">For-Review</span>
                                                         @else
                                                             
                                                         @endif

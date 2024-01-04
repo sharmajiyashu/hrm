@@ -16,4 +16,5 @@ class Task extends Model
     static $complete = '1';
     static $in_processing = '2';
     static $on_hold = '3';
+    static $for_review = '4';
 }

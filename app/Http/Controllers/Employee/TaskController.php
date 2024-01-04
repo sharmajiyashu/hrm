@@ -171,6 +171,15 @@ class TaskController extends Controller
                 ]);
             }
             return redirect()->back()->with('success','Task on-hold');
+        }elseif($request->status == Task::$for_review){
+            Task::where('id',$request->id)->where('user_id',auth()->user()->id)->update(['status' => Task::$for_review]);            
+            $task_time = TaskTime::where('task_id',$request->id)->orderBy('id','DESC')->first();
+            if(!empty($task_time)){
+                $task_time->update([
+                    'end_time' => date('Y-m-d H:i:s'),
+                ]);
+            }
+            return redirect()->back()->with('success','Task On for review');
         }
     }
 
@@ -184,6 +193,12 @@ class TaskController extends Controller
             return json_encode($task);
         }
         return json_encode([]);
+    }
+
+
+    function lists(){
+        $pending_tasks = Task::get();
+        return view('employee.tasks.lists',compact('pending_tasks'));
     }
 
 

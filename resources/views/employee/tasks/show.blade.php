@@ -94,10 +94,10 @@
                                             <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Start</a>
                                         @elseif ($task->status == 2)
                                             <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 3 ]) }}" onclick="return confirm('Are you sure you want to on-hold task : {{ $task->name }}?')" class="btn btn-danger">On Hold</a>
-                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 1 ]) }}" onclick="return confirm('Are you sure you want to complete task : {{ $task->name }}?')" class="btn btn-success">Complete</a>
+                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 4 ]) }}" onclick="return confirm('Are you sure you want to complete task : {{ $task->name }}?')" class="btn btn-success">For-Review</a>
                                         @elseif ($task->status == 3)
-                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">In-Processing</a>
-                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 1 ]) }}" onclick="return confirm('Are you sure you want to complete task : {{ $task->name }}?')" class="btn btn-success">Complete</a>
+                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Start</a>
+                                            <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 4 ]) }}" onclick="return confirm('Are you sure you want to complete task : {{ $task->name }}?')" class="btn btn-success">For-Review</a>
                                         @else
                                             
                                         @endif

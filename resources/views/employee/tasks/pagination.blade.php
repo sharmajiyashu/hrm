@@ -78,6 +78,8 @@
                             <span class="badge rounded-pill badge-light-success">Complete</span>
                         @elseif ($item->status == 3)
                             <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                        @elseif ($item->status == 4)
+                            <span class="badge rounded-pill badge-light-warning">For-Review</span>
                         @else
                             
                         @endif

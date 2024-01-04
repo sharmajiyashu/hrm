@@ -38,11 +38,12 @@
                  
             </li> --}}
 
-            <li class=" nav-item {{ Request::routeIs('employee.tasks.index') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="layers"></i><span class="menu-title text-truncate" data-i18n="Invoice">Task </span></a>
+            <li class=" nav-item {{ Request::routeIs('employee.tasks.index','employee.tasks.lists') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Invoice">Task </span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.index') ? 'active' : '' }} " href="{{ route('employee.tasks.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Task Sheet</span></a>
                     </li>
-                    
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.lists') ? 'active' : '' }} " href="{{ route('employee.tasks.lists') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    </li>
                 </ul>
             </li>
 
