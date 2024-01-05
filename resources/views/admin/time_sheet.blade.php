@@ -89,7 +89,7 @@
                                                         </div>
 
                                                         {{-- <div> --}}
-                                                            <h3 class="badge rounded-pill badge-light-primary" style="width: 100%">
+                                                            <h3 class="badge rounded-pill badge-light-success" style="width: 100%">
                                                                 WH : {{ isset($item['working_hour']) ? $item['working_hour'] : '-' }}
                                                             </h3>
                                                             <h3 class="badge rounded-pill badge-light-danger" style="width: 100%">

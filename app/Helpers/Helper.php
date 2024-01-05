@@ -3,7 +3,9 @@
 namespace App\Helpers;
 
 use App\Models\Breaktime;
+use App\Models\ManagerMap;
 use App\Models\PunchTime;
+use App\Models\Task;
 use App\Models\TaskTime;
 use Carbon\Carbon;
 
@@ -12,6 +14,14 @@ class Helper
     public static function myCustomMethod()
     {
         return 'Hello, this is a custom helper method!';
+    }
+
+    public static function getForReviewTaskCount(){
+        $manager_project_ids = ManagerMap::where('user_id',auth()->user()->id)->pluck('project_id')->toArray();
+
+        $task_count = Task::whereIn('project_id',$manager_project_ids)->where('status',Task::$for_review)->count();
+
+        return $task_count;
     }
 
 

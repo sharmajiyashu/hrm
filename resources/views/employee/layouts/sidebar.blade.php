@@ -38,11 +38,15 @@
                  
             </li> --}}
 
-            <li class=" nav-item {{ Request::routeIs('employee.tasks.index','employee.tasks.lists') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Invoice">Task </span></a>
+            <li class=" nav-item {{ Request::routeIs('employee.tasks.index','employee.tasks.lists','employee.tasks.testing','employee.tasks.show') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href=""><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Invoice">Task </span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.index') ? 'active' : '' }} " href="{{ route('employee.tasks.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Task Sheet</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.index','employee.tasks.show') ? 'active' : '' }} " href="{{ route('employee.tasks.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">Sheet</span></a>
                     </li>
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.lists') ? 'active' : '' }} " href="{{ route('employee.tasks.lists') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.lists') ? 'active' : '' }} " href="{{ route('employee.tasks.lists') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">List</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.create') ? 'active' : '' }} " href="{{ route('employee.tasks.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">Create</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('employee.tasks.testing') ? 'active' : '' }} " href="{{ route('employee.tasks.testing',['status' => json_encode([4])]) }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Testing</span><span class="badge badge-light-danger rounded-pill ms-auto me-1">{{ \App\Helpers\Helper::getForReviewTaskCount() }}</span></a>
                     </li>
                 </ul>
             </li>

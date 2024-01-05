@@ -32,7 +32,7 @@ class StoreEmployeeRequest extends FormRequest
             'date_of_birth' => 'required',
             'date_of_join' => 'required',
             'designation' => 'required',
-            'salary' => 'required',
+            'salary' => 'required|numeric',
             'probation_end_date' => 'required',
             'state' => 'required',
             'city' => 'required',

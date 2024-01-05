@@ -35,61 +35,139 @@
                 </div>
             </div> --}}
         </div>
-        <div class="content-body">
-            <div class="row">
-                <div class="col-12">
-                    
-                    <!-- profile -->
+        
+
+
+        <section id="basic-tabs-components">
+            <div class="row match-height">
+                <!-- Basic Tabs starts -->
+                <div class="col-xl-6 col-lg-12">
                     <div class="card">
-                        <div class="card-header border-bottom">
-                            <h4 class="card-title">{{ $task->name }}</h4>
-                            @if ($task->status == 0)
-                                <span class="badge rounded-pill badge-light-primary">Pending</span>
-                            @elseif ($task->status == 2)
-                                <span class="badge rounded-pill badge-light-dark">In Processing</span>
-                            @elseif ($task->status == 1)
-                                <span class="badge rounded-pill badge-light-success">Complete</span>
-                            @elseif ($task->status == 3)
-                                <span class="badge rounded-pill badge-light-danger">On-Hold</span>
-                            @else
-                                
-                            @endif
-                            
-                        </div>
+                        {{-- <div class="card-header">
+                            <h4 class="card-title">Basic Tab</h4>
+                        </div> --}}
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-8 py-2 my-25 card mb-1" style="border: solid 1px ">
-                                    <div class="" >
-                                        <h2>Description</h2>
-                                        {!! $task->description !!}
-                                    </div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" aria-controls="home" role="tab" aria-selected="true"><i data-feather="home"></i>Description</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i data-feather="home"></i>Comments</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" aria-labelledby="home-tab" role="tabpanel">
+                                    {!! $task->description !!}
                                 </div>
+                                <div class="tab-pane" id="profile" aria-labelledby="profile-tab" role="tabpanel">
+                                    @foreach ($task->comments as $comment)
 
-                                <div class="col-md-4">
-                                    <div class="mb-1" >
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Task name</th>
-                                                    <td>{{ $task->name }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Expected time</th>
-                                                    <td>{{ $task->expected_time }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Working Timer</th>
-                                                    <td ><span class="task_timer_in_show">{{ $task->task_time }}</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <td ><span class="">{{ $task->date }}</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="profile-twitter-feed mt-1">
+                                        <div class="d-flex justify-content-start align-items-center mb-1">
+                                            <div class="avatar me-1">
+                                                <img src="{{ asset('public/admin/app-assets/images/avatars/5-small.png')}}" alt="avatar img" height="40" width="40" />
+                                            </div>
+                                            <div class="profile-user-info">
+                                                <h6 class="mb-0">{{ $comment->first_name }} {{ $comment->last_name }}</h6>
+                                                <a href="#">
+                                                    {{-- <small class="text-muted">@tiana59</small> --}}
+                                                    {{-- <i data-feather="check-circle"></i> --}}
+                                                </a>
+                                            </div>
+                                            <div class="profile-star ms-auto">
+                                                {{ date('d-M-y H:i:s',strtotime($comment->created_at)) }}
+                                            </div>
+                                        </div>
+                                        <p class="card-text mb-50">{{ $comment->comment }}</p>
+                                        {{-- <a href="#" class="">
+                                            <small>#design #fasion</small>
+                                        </a> --}}
+                                        <div class="border"></div>
+                                        
                                     </div>
 
-                                    <div class="mb-1" style="    text-align: end;">
+                                @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Basic Tabs ends -->
+
+                <!-- Tabs with Icon starts -->
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card">
+                        {{-- <div class="card-header">
+                            <h4 class="card-title">Tab with icon</h4>
+                        </div> --}}
+                        <div class="card-body">
+                            <div class="mb-1" >
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Task name</th>
+                                            <td>{{ $task->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expected time</th>
+                                            <td>{{ $task->expected_time }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Working Timer</th>
+                                            <td ><span class="task_timer_in_show">{{ $task->task_time }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date</th>
+                                            <td ><span class="">{{ $task->date }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Employee</th>
+                                            <td ><span class="">{{ $task->employee_name }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status</th>
+                                            <td>
+                                                @if ($task->status == 0)
+                                                    <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                @elseif ($task->status == 2)
+                                                    <span class="badge rounded-pill badge-light-dark">In Processing</span>
+                                                @elseif ($task->status == 1)
+                                                    <span class="badge rounded-pill badge-light-success">Complete</span>
+                                                @elseif ($task->status == 3)
+                                                    <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                                                @elseif ($task->status == 4)
+                                                    <span class="badge rounded-pill badge-light-danger">For-Review</span>
+                                                @else
+                                                    
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Qa Status</th>
+                                            <td>
+                                                @if ($task->qa_status == 0)
+                                                    <span class="badge rounded-pill badge-light-primary">Pending</span>
+                                                @elseif ($task->qa_status == 2)
+                                                    <span class="badge rounded-pill badge-light-warning">Re-Opened</span>
+                                                @elseif ($task->qa_status == 1)
+                                                    <span class="badge rounded-pill badge-light-success">Complete</span>
+                                                @elseif ($task->qa_status == 3)
+                                                    <span class="badge rounded-pill badge-light-danger">On-Hold</span>
+                                                @elseif ($task->qa_status == 4)
+                                                    <span class="badge rounded-pill badge-light-danger">For-Review</span>
+                                                @else
+                                                    
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            @if ($task->user_id == auth()->user()->id)
+                                <div class="mb-1">
+                                    
+                                    <div class="text-center">
                                         @if ($task->status == 0)
                                             <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Start</a>
                                         @elseif ($task->status == 2)
@@ -98,25 +176,46 @@
                                         @elseif ($task->status == 3)
                                             <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Start</a>
                                             <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 4 ]) }}" onclick="return confirm('Are you sure you want to complete task : {{ $task->name }}?')" class="btn btn-success">For-Review</a>
+                                        @elseif ($task->status == 4)
+                                            {{-- <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 3 ]) }}" onclick="return confirm('Are you sure you want to on-hold task : {{ $task->name }}?')" class="btn btn-danger">On Hold</a> --}}
+                                            {{-- <a href="{{ route('employee.tasks.change_status',['id' => $task->id ,'status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Start</a> --}}
                                         @else
                                             
                                         @endif
                                     </div>
                                     
+                                </div>    
+                            @endif
+
+                            @if ($task->is_manager > 0 && $task->status == 4)
+
+                                <div class="mb-1 " >
+                                    
+                                    <div class="text-center mb-1">
+
+                                            @if ($task->qa_status == 0)
+                                                <a href="{{ route('employee.tasks.change_qa_status',['id' => $task->id ,'qa_status' => 1 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Complete</a>
+                                                <a href="{{ route('employee.tasks.change_qa_status',['id' => $task->id ,'qa_status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-danger">Re-Opened</a>
+                                            @elseif ($task->qa_status == 2)
+                                                <a href="{{ route('employee.tasks.change_qa_status',['id' => $task->id ,'qa_status' => 1 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-dark">Complete</a>
+                                            @elseif ($task->qa_status == 1)
+                                                <a href="{{ route('employee.tasks.change_qa_status',['id' => $task->id ,'qa_status' => 2 ]) }}" onclick="return confirm('Are you sure you want to start task : {{ $task->name }}?')" class="btn btn-danger">Re-Opened</a>
+                                            @else
+                                                
+                                            @endif   
+                                    </div>
+                                    
                                 </div>
-
-
-                            </div>
-                            
-
-                            
+                            @endif
                         </div>
                     </div>
-                    
                 </div>
+                <!-- Tabs with Icon ends -->
             </div>
+        </section>
 
-        </div>
+
+
     </div>
 </div>
 

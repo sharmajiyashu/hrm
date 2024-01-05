@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
+use App\Models\Employee;
+use App\Models\ManagerMap;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -46,7 +48,8 @@ class ProjectController extends Controller
     public function create()
     {
         $clients = Client::get();
-        return view('admin.projects.create',compact('clients'));
+        $employees = Employee::get();
+        return view('admin.projects.create',compact('clients','employees'));
     }
 
     /**
@@ -57,7 +60,15 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        Project::create($request->validated());
+        $project = Project::create($request->validated());
+        if(!empty($request->manager)){
+            foreach($request->manager as $manager_id){
+                ManagerMap::create([
+                    'user_id' => $manager_id,
+                    'project_id' => $project->id
+                ]);
+            }
+        }
         return redirect()->route('admin.projects.index')->with('success','Project create successfully');
     }
 

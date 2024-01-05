@@ -8,6 +8,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Employee;
 use App\Models\Project;
+use App\Models\TaskComment;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -71,7 +72,8 @@ class TaskController extends Controller
         }
         $data = $request->validated();
         $data['expected_time'] = $endTime->format('H:i:s');
-        Task::create($data);
+        $task =  Task::create($data);
+        TaskComment::create(['user_id' => auth()->user()->id ,'task_id' => $task->id , 'comment' => "Task has been created ".date('d M ,H:i:s') ]);
         return redirect()->route('admin.tasks.index')->with('success','Task create successfully');
     }
 

@@ -102,6 +102,19 @@
 
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Manager  <span class="error">*</span></label>
+                                                    <select name="manager[]" id="manager[]" class="select2 form-select" multiple>
+                                                        <option value="">(Select category)</option>
+                                                        @foreach ($employees as  $key => $val)
+                                                            <option value="{{ $val->user_id }}" {{ (old('manager[]') == $val->user_id) ? 'selected' : '' }}>{{ $val->first_name }} {{ $val->last_name }}</option>    
+                                                        @endforeach
+                                                    </select>
+                                                    @error('manager[]')<span class="error">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Amount<span class="error">*</span></label>
                                                     <input type="number" id="first-name-column" name="amount" class="form-control" placeholder="Amount" oninput=""  value="{{ old('amount') }}" />
                                                     @error('amount')<span class="error">{{ $message }}</span>@enderror

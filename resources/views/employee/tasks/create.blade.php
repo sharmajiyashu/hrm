@@ -1,7 +1,7 @@
 
 
 
-@extends('admin.layouts.app')
+@extends('employee.layouts.app')
 
 @section('content')
 
@@ -27,9 +27,9 @@
                             <h2 class="content-header-title float-start mb-0">Client</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('admin.tasks.index') }}">projects</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('employee.tasks.index') }}">projects</a>
                                     </li>
                                     <li class="breadcrumb-item active">Create
                                     </li>
@@ -61,7 +61,7 @@
                                     {{-- <h4 class="card-title">Create</h4> --}}
                                 </div>
                                 <div class="card-body">
-                                    <form class="form" action="{{ route('admin.tasks.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form class="form" action="{{ route('employee.tasks.store') }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     
                                         <div class="row">
@@ -132,7 +132,7 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Description<span class="error"></span></label>
-                                                    <textarea name="description" class="form-control" id="" cols="4" rows="4" placeholder="Project Description">{{ old('description') }}</textarea>
+                                                    <textarea name="description" class="form-control" id="description" cols="4" rows="4" placeholder="Project Description">{{ old('description') }}</textarea>
                                                     @error('description')<span class="error">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -155,5 +155,14 @@
         </div>
     </div>
     <!-- END: Content-->
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     
 @endsection
