@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Project;
+use App\Models\TaskComment;
 use App\Models\TaskTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -197,7 +198,10 @@ class TaskController extends Controller
 
 
     function lists(){
-        $pending_tasks = Task::get();
+        $pending_tasks = Task::get()->map(function($task){
+            $task->comments = TaskComment::select('task_comments.*','users.first_name','users.last_name')->where('task_comments.task_id',$task->id)->join('users','users.id','task_comments.user_id')->get();
+            return $task;
+        });
         return view('employee.tasks.lists',compact('pending_tasks'));
     }
 
