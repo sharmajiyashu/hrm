@@ -16,11 +16,12 @@
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Employee</h2>
-                            <div class="breadcrumb-wrapper">
+                        <div class="col-12 text-center" >
+                            <h2>Time Sheet</h2>
+                            {{-- <h2 class="content-header-title float-start mb-0">Employee</h2> --}}
+                            {{-- <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{  route('admin.dashboard') }}">Home</a>
                                     </li>
@@ -29,7 +30,7 @@
                                     <li class="breadcrumb-item active">List
                                     </li>
                                 </ol>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -57,19 +58,19 @@
                 <div class="row" >
                     <div class="col-12">
                         <div class="card card-company-table">
-                            <div class="card-header">
-                                <h4 class="card-title">Responsive tables</h4>
+                            {{-- <div class="card-header">
+                                <h4 class="card-title"></h4>
                                 <div class="col-md-3" style="text-align: end">
                                     <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="table-responsive" id="table-responsive">
                                 <table class="table mb-0">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th scope="col" >#</th>
+                                            <th scope="col" >Employee</th>
                                             @foreach ($current_week_days as $date)
-                                                <th>{{ $date }}</th>
+                                                <th class="text-center">{{ date('d-D',strtotime($date)) }}</th>
                                             @endforeach
                                         </tr>
                                     </thead>
@@ -81,20 +82,26 @@
                                                     <td class="@if($item['date'] == date('Y-m-d')) active @endif">
                                                         <div style="font-size:9px">
                                                             <span class="badge rounded-pill badge-light-dark">
-                                                                In : {{ isset($item->punch_in) ? $item->punch_in : '-' }}
+                                                                In : {{ isset($item->punch_in) ? date('H:i',strtotime($item->punch_in)) : '-' }}
                                                             </span>
                                                             <span class="badge rounded-pill badge-light-dark">
-                                                                Out : {{ isset($item->punch_out) ? $item->punch_out : '-' }}
+                                                                Out : {{ isset($item->punch_out) ? date('H:i',strtotime($item->punch_out)) : '-' }}
                                                             </span>
                                                         </div>
 
                                                         {{-- <div> --}}
                                                             <h3 class="badge rounded-pill badge-light-success" style="width: 100%">
-                                                                WH : {{ isset($item['working_hour']) ? $item['working_hour'] : '-' }}
+                                                                WH : {{ isset($item['working_hour']) ? date('H:i',strtotime($item['working_hour'])) : '-' }}
                                                             </h3>
                                                             <h3 class="badge rounded-pill badge-light-danger" style="width: 100%">
-                                                                BH : {{ isset($item['break_hour']) ? $item['break_hour'] : '-' }}
+                                                                BH : {{ isset($item['break_hour']) ? date('H:i',strtotime($item['break_hour'])) : '-' }}
                                                             </h3>
+
+                                                            <h6 class="text-center" style="width: 100%;font-size:9px" data-bs-toggle="tooltip" data-bs-placement="top" title=" {{ isset($item->device) ? $item->device :'' }} ">
+                                                                Ip : {{ isset($item->ip_address) ? $item->ip_address :'' }}
+                                                            </h6>
+
+                                                            
                                                         {{-- </div> --}}
 
                                                         

@@ -28,9 +28,11 @@ class StoreProjectRequest extends FormRequest
             'start_date' => 'required',
             'end_date' => 'required',
             'client' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'category' => 'required',
-            'amount' => 'required'
+            'amount' => 'required',
+            'manager' => 'required',
+            'team' => 'required'
         ];
     }
 }

@@ -89,7 +89,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('admin.clients.edit',compact('client'));
     }
 
     /**
@@ -101,7 +101,21 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        $employee = Client::where('id',$client->id)->update([
+            'company_name' => $request->company_name,
+            'gst_number' => $request->gst_number,
+            'gender' => $request->gender,
+            'city' => $request->city,
+            'state' => $request->state,
+            'address' => $request->address,
+        ]);
+        $user = User::where('id',$client->user_id)->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ]);
+        return redirect()->route('admin.clients.index')->with('success','Client update successfully');
     }
 
     /**
@@ -112,7 +126,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->back()->with('success','Client delete successfully');
     }
 
 

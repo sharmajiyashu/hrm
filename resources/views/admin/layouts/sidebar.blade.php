@@ -20,9 +20,9 @@
                  
             </li>
             
-            <li class=" nav-item {{ Request::routeIs('admin.employees.index','admin.employees.create','admin.employees.show','admin.employees.appraisals','admin.employees.loans','admin.employees.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.employees.index','admin.employees.create','admin.employees.show','admin.employees.edit','admin.employees.appraisals','admin.employees.loans','admin.employees.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Invoice">Employee</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.index','admin.employees.show','admin.employees.appraisals','admin.employees.loans','admin.employees.salaries') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.index','admin.employees.show','admin.employees.edit','admin.employees.appraisals','admin.employees.loans','admin.employees.salaries') ? 'active' : '' }} " href="{{ route('admin.employees.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
 
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.employees.create') ? 'active' : '' }} " href="{{ route('admin.employees.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
@@ -30,9 +30,9 @@
                 </ul>
             </li>
 
-            <li class=" nav-item {{ Request::routeIs('admin.clients.index','admin.clients.create','admin.clients.show','admin.clients.appraisals','admin.clients.loans','admin.clients.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Invoice">Client</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.clients.index','admin.clients.create','admin.clients.edit','admin.clients.show','admin.clients.appraisals','admin.clients.loans','admin.clients.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Invoice">Client</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.clients.index','admin.clients.show','admin.clients.appraisals','admin.clients.loans','admin.clients.salaries') ? 'active' : '' }} " href="{{ route('admin.clients.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.clients.index','admin.clients.edit','admin.clients.show','admin.clients.appraisals','admin.clients.loans','admin.clients.salaries') ? 'active' : '' }} " href="{{ route('admin.clients.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
 
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.clients.create') ? 'active' : '' }} " href="{{ route('admin.clients.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>

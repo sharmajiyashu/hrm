@@ -9,5 +9,8 @@ class ManagerMap extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','project_id'];
+    protected $fillable = ['user_id','project_id','type'];
+    
+    static $manager = "1";
+    static $team = "0";
 }

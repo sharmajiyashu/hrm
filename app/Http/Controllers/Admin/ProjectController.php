@@ -65,7 +65,17 @@ class ProjectController extends Controller
             foreach($request->manager as $manager_id){
                 ManagerMap::create([
                     'user_id' => $manager_id,
-                    'project_id' => $project->id
+                    'project_id' => $project->id,
+                    'type' => ManagerMap::$manager
+                ]);
+            }
+        }
+        if(!empty($request->team)){
+            foreach($request->manager as $team_id){
+                ManagerMap::create([
+                    'user_id' => $team_id,
+                    'project_id' => $project->id,
+                    'type' => ManagerMap::$team
                 ]);
             }
         }
@@ -91,7 +101,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $clients = Client::get();
+        $employees = Employee::get();
+        $project_team = ManagerMap::where('type',ManagerMap::$team)->get()->toArray();
+        return view('admin.projects.edit',compact('project','clients','employees'));
     }
 
     /**
@@ -114,6 +127,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->back()->with('success','Project delete successfully');
     }
 }

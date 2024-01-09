@@ -102,14 +102,31 @@
 
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Manager  <span class="error">*</span></label>
+                                                    <label class="form-label" for="first-name-column">Project Lead  <span class="error">*</span></label>
                                                     <select name="manager[]" id="manager[]" class="select2 form-select" multiple>
                                                         <option value="">(Select category)</option>
                                                         @foreach ($employees as  $key => $val)
-                                                            <option value="{{ $val->user_id }}" {{ (old('manager[]') == $val->user_id) ? 'selected' : '' }}>{{ $val->first_name }} {{ $val->last_name }}</option>    
+                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, old('manager', [])) ? 'selected' : '' }}>
+                                                            {{ $val->first_name }} {{ $val->last_name }}
+                                                        </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('manager[]')<span class="error">{{ $message }}</span>@enderror
+                                                    @error('manager')<span class="error">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="first-name-column">Team  <span class="error">*</span></label>
+                                                    <select name="team[]" id="team[]" class="select2 form-select" multiple>
+                                                        <option value="">(Select category)</option>
+                                                        @foreach ($employees as  $key => $val)
+                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, old('team', [])) ? 'selected' : '' }}>
+                                                            {{ $val->first_name }} {{ $val->last_name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('team')<span class="error">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
 

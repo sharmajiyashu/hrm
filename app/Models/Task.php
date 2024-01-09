@@ -29,12 +29,9 @@ class Task extends Model
 
         // Fetch events when the model is retrieved
         static::retrieved(function ($event) {
-            
             $user = User::find($event->user_id);
             $event->employee_name = (isset($user->first_name) ? $user->first_name : '') . ' ' . (isset($user->last_name) ? $user->last_name : '');
-            $event->is_manager = ManagerMap::where('project_id',$event->project_id)->where('user_id',auth()->user()->id)->count();
-            
-            
+            $event->is_manager = ManagerMap::where('project_id',$event->project_id)->where('type',ManagerMap::$manager)->where('user_id',auth()->user()->id)->count();
         });
     }
 }

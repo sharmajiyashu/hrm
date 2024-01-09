@@ -9,5 +9,5 @@ class PunchTime extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','punch_in','punch_out'];
+    protected $fillable = ['user_id','punch_in','punch_out','ip_address','device'];
 }

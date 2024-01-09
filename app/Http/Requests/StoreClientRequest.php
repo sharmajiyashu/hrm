@@ -31,9 +31,9 @@ class StoreClientRequest extends FormRequest
             'gender' => 'required',
             'state' => 'required',
             'city' => 'required',
-            'address' => 'required',
+            'address' => 'nullable',
             'company_name' => 'required',
-            'gst_number' => 'required'
+            'gst_number' => 'nullable'
         ];
     }
 }

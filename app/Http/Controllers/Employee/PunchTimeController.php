@@ -11,6 +11,8 @@ use App\Models\Breaktime;
 use App\Models\LeaveRequest;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 
 class PunchTimeController extends Controller
 {
@@ -174,9 +176,16 @@ class PunchTimeController extends Controller
     }
 
 
-    function punchIn(){
+    function punchIn(Request $request){
         if(auth()->check()){
+            $agent = new Agent();
+            $deviceType = $agent->device(); // Device type (phone, tablet, desktop, etc.)
+            $platform = $agent->platform(); // Operating system (Windows, macOS, Android, iOS, etc.)
+            $browser = $agent->browser(); 
+            $device_info = "Device : $deviceType, Platform : $platform , Browser : $browser";
+
             $today = Carbon::today();
+            
             $get_time = PunchTime::where('user_id', auth()->user()->id)->whereDate('created_at', $today)->first();
             if(!empty($get_time)){
                 return json_encode([
@@ -186,6 +195,8 @@ class PunchTimeController extends Controller
                 $punch = PunchTime::create([
                     'user_id' => auth()->user()->id,
                     'punch_in' => date('H:i:s'),
+                    'ip_address' => $request->ip(),
+                    'device' => $device_info
                 ]);
                 return json_encode([
                     'status' => 1,

@@ -94,7 +94,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('admin.employees.edit',compact('employee'));
     }
 
     /**
@@ -106,7 +106,27 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        //
+        $user_id = $employee->user_id;
+        // $employee->fill($request->all());
+        // $employee->update($request->validated());
+        Employee::where('id',$employee->id)->update([
+            'gender' => $request->gender,
+            'designation' => $request->designation,
+            'salary' => $request->salary,
+            'city' => $request->city,
+            'state' => $request->state,
+            'address' => $request->address,
+            'date_of_birth' => $request->date_of_birth,
+            'date_of_join' => $request->date_of_join,
+            'probation_end_date' => $request->probation_end_date,
+        ]);
+        $user = User::where('id',$user_id)->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ]);
+        return redirect()->route('admin.employees.index')->with('success','Create update successfully');
     }
 
     /**
@@ -117,7 +137,9 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        User::where('id',$employee->user_id)->delete();
+        $employee->delete();
+        return redirect()->route('admin.employees.index')->with('success','Employee delete successfully');
     }
 
 
