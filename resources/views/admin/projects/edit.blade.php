@@ -107,7 +107,7 @@
                                                     <select name="manager[]" id="manager[]" class="select2 form-select" multiple>
                                                         <option value="">(Select category)</option>
                                                         @foreach ($employees as  $key => $val)
-                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, old('manager', [])) ? 'selected' : '' }}>
+                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, $project_lead) ? 'selected' : '' }}>
                                                             {{ $val->first_name }} {{ $val->last_name }}
                                                         </option>
                                                         @endforeach
@@ -122,7 +122,7 @@
                                                     <select name="team[]" id="team[]" class="select2 form-select" multiple>
                                                         <option value="">(Select category)</option>
                                                         @foreach ($employees as  $key => $val)
-                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, old('team', [])) ? 'selected' : '' }}>
+                                                        <option value="{{ $val->user_id }}" {{ in_array($val->user_id, $project_team) ? 'selected' : '' }}>
                                                             {{ $val->first_name }} {{ $val->last_name }}
                                                         </option>
                                                         @endforeach
@@ -159,11 +159,10 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Description<span class="error"></span></label>
-                                                    <textarea name="description" class="form-control" id="" cols="4" rows="4" placeholder="Project Description">{{ old('description') }}</textarea>
+                                                    <textarea name="description" class="form-control" id="" cols="4" rows="4" placeholder="Project Description">{{ $project->description }}</textarea>
                                                     @error('description')<span class="error">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
-                                            
 
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary me-1">Submit</button>

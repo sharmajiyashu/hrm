@@ -103,8 +103,11 @@ class ProjectController extends Controller
     {
         $clients = Client::get();
         $employees = Employee::get();
-        $project_team = ManagerMap::where('type',ManagerMap::$team)->get()->toArray();
-        return view('admin.projects.edit',compact('project','clients','employees'));
+        $project_team = ManagerMap::where('type',ManagerMap::$team)->pluck('user_id')->toArray();
+        $project_lead = ManagerMap::where('type',ManagerMap::$team)->pluck('user_id')->toArray();
+
+        // print_r($project_team);
+        return view('admin.projects.edit',compact('project','clients','employees','project_team','project_lead'));
     }
 
     /**
@@ -116,7 +119,28 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->fill($request->validated());
+        $project->update();
+        ManagerMap::where('project_id',$project->id)->delete();
+        if(!empty($request->manager)){
+            foreach($request->manager as $manager_id){
+                ManagerMap::create([
+                    'user_id' => $manager_id,
+                    'project_id' => $project->id,
+                    'type' => ManagerMap::$manager
+                ]);
+            }
+        }
+        if(!empty($request->team)){
+            foreach($request->manager as $team_id){
+                ManagerMap::create([
+                    'user_id' => $team_id,
+                    'project_id' => $project->id,
+                    'type' => ManagerMap::$team
+                ]);
+            }
+        }
+        return redirect()->route('admin.projects.index')->with('success','Project update successfully');
     }
 
     /**

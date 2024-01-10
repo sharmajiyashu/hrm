@@ -40,9 +40,9 @@
                 </ul>
             </li>
 
-            <li class=" nav-item {{ Request::routeIs('admin.projects.index','admin.projects.create','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="database"></i><span class="menu-title text-truncate" data-i18n="Invoice">Project</span></a>
+            <li class=" nav-item {{ Request::routeIs('admin.projects.index','admin.projects.create','admin.projects.edit','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'has-sub open' : '' }} "><a class="d-flex align-items-center" href="#"><i data-feather="database"></i><span class="menu-title text-truncate" data-i18n="Invoice">Project</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.projects.index','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'active' : '' }} " href="{{ route('admin.projects.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                    <li><a class="d-flex align-items-center {{ Request::routeIs('admin.projects.index','admin.projects.edit','admin.projects.show','admin.projects.appraisals','admin.projects.loans','admin.projects.salaries') ? 'active' : '' }} " href="{{ route('admin.projects.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                     </li>
 
                     <li><a class="d-flex align-items-center {{ Request::routeIs('admin.projects.create') ? 'active' : '' }} " href="{{ route('admin.projects.create') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Create</span></a>
